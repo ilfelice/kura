@@ -14,6 +14,8 @@ on the Be API.
 
 ---
 
+![Kura](screenshot.jpeg)
+
 ## Features
 
 - **Encrypted local database** — your entries live in a single `.kvdb`
