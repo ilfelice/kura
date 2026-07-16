@@ -1,6 +1,8 @@
 /*
  * PasswordGeneratorWindow.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Password generator dialog. Can run standalone (Tools menu, offers
  * "Copy") or attached to an entry edit dialog (offers "Use", which

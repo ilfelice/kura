@@ -1,6 +1,8 @@
 /*
  * EntryEditWindow.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Dialog for creating or editing a password entry.
  * Fields: title, group, username, password, URL, notes.

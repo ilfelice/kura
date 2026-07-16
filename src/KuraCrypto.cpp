@@ -1,6 +1,8 @@
 /*
  * KuraCrypto.cpp
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Implementation of AES-256-GCM encryption/decryption with PBKDF2.
  */

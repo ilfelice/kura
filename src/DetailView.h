@@ -1,6 +1,8 @@
 /*
  * DetailView.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Right panel displaying the fields of the currently selected entry.
  */

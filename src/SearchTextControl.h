@@ -1,6 +1,8 @@
 /*
  * SearchTextControl.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * A BTextControl for search fields with a clickable clear "x" shown
  * inside the right edge when it contains text; Escape also clears

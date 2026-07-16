@@ -1,6 +1,8 @@
 /*
  * KuraSettings.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Persists UI state: window frame, split positions, column state.
  * Stored as a flattened BMessage in the user settings directory.

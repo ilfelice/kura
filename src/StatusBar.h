@@ -1,6 +1,8 @@
 /*
  * StatusBar.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Bottom status bar. Exactly as tall as a horizontal scroll bar so
  * it lines up flush with the document window's resize knob, and

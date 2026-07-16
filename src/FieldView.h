@@ -1,6 +1,8 @@
 /*
  * FieldView.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * A composite view that looks like a single text field with embedded
  * icon buttons on the right side. Draws icons manually with alpha

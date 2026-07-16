@@ -1,6 +1,8 @@
 /*
  * KuraCrypto.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Encryption layer using AES-256-GCM with PBKDF2 key derivation.
  * Handles encrypting/decrypting the database file contents.

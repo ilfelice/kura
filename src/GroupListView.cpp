@@ -1,6 +1,8 @@
 /*
  * GroupListView.cpp
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Sidebar group tree implementation. Item drawing modeled on
  * TimeZoneListItem from the Haiku Time preferences applet.

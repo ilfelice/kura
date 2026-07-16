@@ -1,6 +1,8 @@
 /*
  * UnlockWindow.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Modal dialog for entering the master password to unlock a database,
  * to set a password when creating a new database, or to change the

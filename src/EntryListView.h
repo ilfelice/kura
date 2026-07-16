@@ -1,6 +1,8 @@
 /*
  * EntryListView.h
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Middle pane showing entries in a ColumnListView.
  * Displays title, username, and modified date columns.

@@ -1,6 +1,8 @@
 /*
  * KuraSettings.cpp
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Persists UI state as a flattened BMessage.
  */

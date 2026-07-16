@@ -1,6 +1,8 @@
 /*
  * FieldView.cpp
  * Kura - Password Manager for Haiku
+ * Distributed under the terms of the MIT License.
+ * Copyright 2026 Il Felice.
  *
  * Custom composite field view implementation.
  * Draws icons manually with alpha compositing.
