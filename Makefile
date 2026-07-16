@@ -1,4 +1,4 @@
-## Kura - Password Manager for Haiku
+## Kura - Password Manager for the Haiku operating system
 ## Makefile
 
 NAME = Kura
