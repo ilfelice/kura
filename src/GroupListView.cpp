@@ -284,10 +284,20 @@ _ColumnWidth(const BRect& itemRect)
 // there covers every path.
 class GroupOutlineView : public BOutlineListView {
 public:
+	// Where a group drag would land relative to the hovered row:
+	// as a child of it (onto), or as a sibling before/after it.
+	enum drop_zone {
+		DROP_NONE,
+		DROP_ONTO,
+		DROP_BEFORE,
+		DROP_AFTER,
+	};
+
 	GroupOutlineView(const char* name)
 		:
 		BOutlineListView(name, B_SINGLE_SELECTION_LIST),
 		fDropTargetIndex(-1),
+		fDropZone(DROP_NONE),
 		fDatabase(NULL)
 	{
 	}
@@ -319,17 +329,23 @@ public:
 		const BMessage* dragMessage)
 	{
 		int32 index = -1;
+		drop_zone zone = DROP_NONE;
 		if (dragMessage != NULL && code != B_EXITED_VIEW) {
 			if (dragMessage->what == kMsgEntryDrag) {
 				index = IndexOf(where);
+				if (index >= 0)
+					zone = DROP_ONTO;
 			} else if (dragMessage->what == kMsgGroupDrag) {
-				// Only highlight valid re-parent targets
 				int32 hit = IndexOf(where);
-				if (_ValidGroupDrop(dragMessage, hit))
+				zone = _ZoneFor(hit, where);
+				if (zone != DROP_NONE
+					&& _ValidGroupDrop(dragMessage, hit, zone))
 					index = hit;
+				else
+					zone = DROP_NONE;
 			}
 		}
-		_SetDropTarget(index);
+		_SetDropTarget(index, zone);
 
 		BOutlineListView::MouseMoved(where, code, dragMessage);
 	}
@@ -341,7 +357,7 @@ public:
 			&& message->WasDropped()) {
 			BPoint where = ConvertFromScreen(message->DropPoint());
 			int32 index = IndexOf(where);
-			_SetDropTarget(-1);
+			_SetDropTarget(-1, DROP_NONE);
 
 			GroupItem* item = index < 0 ? NULL
 				: dynamic_cast<GroupItem*>(ItemAt(index));
@@ -358,13 +374,20 @@ public:
 					Window()->PostMessage(&dropped);
 				}
 			} else {	// kMsgGroupDrag
+				drop_zone zone = _ZoneFor(index, where);
 				int32 groupId;
-				if (_ValidGroupDrop(message, index)
+				if (zone != DROP_NONE
+					&& _ValidGroupDrop(message, index, zone)
 					&& message->FindInt32("groupId", &groupId)
 						== B_OK) {
+					kura_id newParentId;
+					kura_id beforeId;
+					_ResolveDrop(index, zone, &newParentId, &beforeId);
+
 					BMessage dropped(kMsgGroupReparented);
 					dropped.AddInt32("groupId", groupId);
-					dropped.AddInt32("newParentId", item->GroupId());
+					dropped.AddInt32("newParentId", newParentId);
+					dropped.AddInt32("beforeId", beforeId);
 					Window()->PostMessage(&dropped);
 				}
 			}
@@ -378,13 +401,29 @@ public:
 	{
 		BOutlineListView::Draw(updateRect);
 
-		// Drop target feedback: frame the hovered group
-		if (fDropTargetIndex >= 0) {
-			BRect frame = ItemFrame(fDropTargetIndex);
-			SetHighColor(ui_color(B_KEYBOARD_NAVIGATION_COLOR));
+		if (fDropTargetIndex < 0 || fDropZone == DROP_NONE)
+			return;
+
+		BRect frame = ItemFrame(fDropTargetIndex);
+		SetHighColor(ui_color(B_KEYBOARD_NAVIGATION_COLOR));
+
+		if (fDropZone == DROP_ONTO) {
+			// Frame the row: drop becomes a child
 			StrokeRect(frame);
-			SetHighColor(ui_color(B_LIST_ITEM_TEXT_COLOR));
+		} else {
+			// Insertion line between rows: drop reorders siblings.
+			// Indent the line to the hovered row's content so it
+			// reads as "at this level". A 1px hairline is the
+			// conventional insertion cue.
+			float indent = _InsertionIndent(fDropTargetIndex);
+			float y = fDropZone == DROP_BEFORE
+				? frame.top : frame.bottom;
+			y = floorf(y) + 0.5f;	// land on a pixel center
+			StrokeLine(BPoint(frame.left + indent, y),
+				BPoint(frame.right, y));
 		}
+
+		SetHighColor(ui_color(B_LIST_ITEM_TEXT_COLOR));
 	}
 
 	virtual void ExpandOrCollapse(BListItem* item, bool expand)
@@ -450,9 +489,96 @@ private:
 	// True if dropping the dragged group onto the item at index
 	// would be a valid re-parent (not onto itself, not onto a
 	// descendant, not onto its current parent, target exists).
-	bool _ValidGroupDrop(const BMessage* drag, int32 index)
+	// Which third of the row is the pointer in? Top -> insert
+	// before, bottom -> insert after, middle -> drop onto. The
+	// virtual root only accepts "onto" (you can't sit above or
+	// below the single root row as a sibling).
+	drop_zone _ZoneFor(int32 index, BPoint where)
 	{
-		if (fDatabase == NULL || index < 0)
+		if (index < 0)
+			return DROP_NONE;
+		GroupItem* item = dynamic_cast<GroupItem*>(ItemAt(index));
+		if (item == NULL)
+			return DROP_NONE;
+		if (item->IsRoot())
+			return DROP_ONTO;
+
+		BRect frame = ItemFrame(index);
+		float third = frame.Height() / 3.0f;
+		if (where.y < frame.top + third)
+			return DROP_BEFORE;
+		if (where.y > frame.bottom - third)
+			return DROP_AFTER;
+		return DROP_ONTO;
+	}
+
+	// Translate (row, zone) into the parameters MoveGroupToPosition
+	// expects: the new parent and the sibling to insert before
+	// (kNoId = append at end of that parent's children).
+	void _ResolveDrop(int32 index, drop_zone zone,
+		kura_id* newParentId, kura_id* beforeId)
+	{
+		GroupItem* target = dynamic_cast<GroupItem*>(ItemAt(index));
+		if (target == NULL) {
+			*newParentId = kNoId;
+			*beforeId = kNoId;
+			return;
+		}
+
+		if (zone == DROP_ONTO) {
+			*newParentId = target->IsRoot()
+				? kNoId : target->GroupId();
+			*beforeId = kNoId;	// append among the new children
+			return;
+		}
+
+		// Sibling insert: same parent as the target row
+		const KuraGroup* targetGroup
+			= fDatabase->GroupById(target->GroupId());
+		kura_id parent = targetGroup != NULL
+			? targetGroup->parentId : kNoId;
+		*newParentId = parent;
+
+		if (zone == DROP_BEFORE) {
+			*beforeId = target->GroupId();
+		} else {	// DROP_AFTER: before the next sibling, or append
+			*beforeId = _NextSiblingId(target->GroupId(), parent);
+		}
+	}
+
+	// The id of the sibling that follows groupId among parent's
+	// children in display order, or kNoId if it's the last.
+	kura_id _NextSiblingId(kura_id groupId, kura_id parent)
+	{
+		BObjectList<KuraGroup> siblings;
+		fDatabase->GetChildGroups(parent, siblings);
+		for (int32 i = 0; i < siblings.CountItems(); i++) {
+			if (siblings.ItemAt(i)->id == groupId) {
+				if (i + 1 < siblings.CountItems())
+					return siblings.ItemAt(i + 1)->id;
+				return kNoId;
+			}
+		}
+		return kNoId;
+	}
+
+	// Left indent for an insertion line: align to the row's content
+	// (icon column), so the line reads as "at this group's level".
+	float _InsertionIndent(int32 index)
+	{
+		GroupItem* item = dynamic_cast<GroupItem*>(ItemAt(index));
+		if (item == NULL)
+			return 0;
+		BRect frame = ItemFrame(index);
+		return item->OutlineLevel() * _ColumnWidth(frame);
+	}
+
+	// Zone-aware validity: resolves the intended parent for the
+	// zone, then rejects self/descendant cycles and no-ops.
+	bool _ValidGroupDrop(const BMessage* drag, int32 index,
+		drop_zone zone)
+	{
+		if (fDatabase == NULL || index < 0 || zone == DROP_NONE)
 			return false;
 		GroupItem* target = dynamic_cast<GroupItem*>(ItemAt(index));
 		if (target == NULL)
@@ -461,26 +587,47 @@ private:
 		int32 groupId;
 		if (drag->FindInt32("groupId", &groupId) != B_OK)
 			return false;
-
 		kura_id dragged = groupId;
-		kura_id newParent = target->GroupId();
 
-		// Normalize the virtual root to top level
-		kura_id normalizedParent = target->IsRoot()
-			? kNoId : newParent;
+		// Can't drop a group onto/around itself
+		if (target->GroupId() == dragged)
+			return false;
+
+		kura_id newParent;
+		kura_id beforeId;
+		_ResolveDrop(index, zone, &newParent, &beforeId);
 
 		const KuraGroup* group = fDatabase->GroupById(dragged);
 		if (group == NULL)
 			return false;
 
-		// Already parented there -> nothing to do
-		if (group->parentId == normalizedParent)
+		// Onto itself or a descendant -> would create a cycle
+		if (newParent != kNoId
+			&& (newParent == dragged
+				|| fDatabase->IsDescendantOf(newParent, dragged)))
 			return false;
 
-		// Onto itself or a descendant -> would create a cycle
-		if (normalizedParent != kNoId
-			&& fDatabase->IsDescendantOf(normalizedParent, dragged))
+		// Inserting relative to one of the dragged group's own
+		// descendants is also a cycle
+		if (fDatabase->IsDescendantOf(target->GroupId(), dragged))
 			return false;
+
+		// No-op detection for "onto": already a child there
+		if (zone == DROP_ONTO && group->parentId == newParent)
+			return false;
+
+		// No-op detection for sibling inserts: dropping into either
+		// separator adjacent to the dragged group leaves it exactly
+		// where it is. That happens when the resolved parent is the
+		// group's current parent and the insertion point (beforeId)
+		// is the group itself or the sibling that already follows
+		// it.
+		if (zone != DROP_ONTO && newParent == group->parentId) {
+			kura_id currentNext
+				= _NextSiblingId(dragged, group->parentId);
+			if (beforeId == dragged || beforeId == currentNext)
+				return false;
+		}
 
 		return true;
 	}
@@ -527,18 +674,29 @@ private:
 		return bitmap;
 	}
 
-	void _SetDropTarget(int32 index)
+	void _SetDropTarget(int32 index, drop_zone zone)
 	{
-		if (index == fDropTargetIndex)
+		if (index == fDropTargetIndex && zone == fDropZone)
 			return;
-		if (fDropTargetIndex >= 0)
-			Invalidate(ItemFrame(fDropTargetIndex));
+		_InvalidateDrop(fDropTargetIndex);
 		fDropTargetIndex = index;
-		if (fDropTargetIndex >= 0)
-			Invalidate(ItemFrame(fDropTargetIndex));
+		fDropZone = zone;
+		_InvalidateDrop(fDropTargetIndex);
+	}
+
+	void _InvalidateDrop(int32 index)
+	{
+		if (index < 0)
+			return;
+		// Inflate slightly so an insertion line drawn on the row's
+		// top/bottom edge is fully repainted.
+		BRect frame = ItemFrame(index);
+		frame.InsetBy(0, -2);
+		Invalidate(frame);
 	}
 
 	int32 fDropTargetIndex;
+	drop_zone fDropZone;
 	KuraDatabase* fDatabase;
 };
 

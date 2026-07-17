@@ -239,6 +239,71 @@ KuraDatabase::MoveGroup(kura_id id, kura_id newParentId)
 
 
 status_t
+KuraDatabase::MoveGroupToPosition(kura_id id, kura_id newParentId,
+	kura_id beforeId)
+{
+	const KuraGroup* group = GroupById(id);
+	if (group == NULL)
+		return B_ENTRY_NOT_FOUND;
+
+	// Normalize the virtual root to "top level" (kNoId)
+	if (newParentId == kAllGroupId)
+		newParentId = kNoId;
+
+	// Reject cycles: the new parent must not be the group itself
+	// or any of its descendants
+	if (newParentId != kNoId && IsDescendantOf(newParentId, id))
+		return B_NOT_ALLOWED;
+
+	// New parent must exist (unless moving to top level)
+	if (newParentId != kNoId && GroupById(newParentId) == NULL)
+		return B_ENTRY_NOT_FOUND;
+
+	// Positioning a group immediately before itself is a no-op,
+	// not a request to append at the end.
+	if (beforeId == id)
+		return B_OK;
+
+	int32 fromIndex = fGroups.IndexOf(const_cast<KuraGroup*>(group));
+	if (fromIndex < 0)
+		return B_ERROR;
+
+	// Apply the re-parent
+	fGroups.ItemAt(fromIndex)->parentId = newParentId;
+
+	// Determine the target array index. Sibling order is the order
+	// groups appear in fGroups, so we position this group's list
+	// slot immediately before beforeId's slot (or at the end when
+	// beforeId is kNoId / not found).
+	int32 toIndex;
+	if (beforeId != kNoId) {
+		const KuraGroup* beforeGroup = GroupById(beforeId);
+		int32 beforeIndex = beforeGroup != NULL
+			? fGroups.IndexOf(const_cast<KuraGroup*>(beforeGroup))
+			: -1;
+		if (beforeIndex < 0) {
+			toIndex = fGroups.CountItems() - 1;
+		} else if (fromIndex < beforeIndex) {
+			// Removing the group first shifts beforeId left by one,
+			// so the slot just before it is beforeIndex - 1.
+			toIndex = beforeIndex - 1;
+		} else {
+			toIndex = beforeIndex;
+		}
+	} else {
+		toIndex = fGroups.CountItems() - 1;
+	}
+
+	if (toIndex != fromIndex && toIndex >= 0)
+		fGroups.MoveItem(fromIndex, toIndex);
+
+	fModified = true;
+	_NotifyChange(kMsgGroupUpdated, id);
+	return B_OK;
+}
+
+
+status_t
 KuraDatabase::RemoveGroup(kura_id id)
 {
 	// First, move all entries in this group to no-group

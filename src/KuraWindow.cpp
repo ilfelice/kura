@@ -726,7 +726,7 @@ KuraWindow::MessageReceived(BMessage* message)
 			break;
 		}
 
-		// --- Group re-parented via drag ---
+		// --- Group re-parented / reordered via drag ---
 		case kMsgGroupReparented:
 		{
 			if (fIsLocked)
@@ -734,17 +734,20 @@ KuraWindow::MessageReceived(BMessage* message)
 
 			int32 groupId;
 			int32 newParentId;
+			int32 beforeId = kNoId;
 			if (message->FindInt32("groupId", &groupId) != B_OK
 				|| message->FindInt32("newParentId", &newParentId)
 					!= B_OK)
 				break;
+			message->FindInt32("beforeId", &beforeId);
 
 			const KuraGroup* group = fDatabase.GroupById(groupId);
 			if (group == NULL)
 				break;
 			BString groupName(group->name);
 
-			if (fDatabase.MoveGroup(groupId, newParentId) != B_OK)
+			if (fDatabase.MoveGroupToPosition(groupId, newParentId,
+					beforeId) != B_OK)
 				break;
 
 			_RefreshAll();

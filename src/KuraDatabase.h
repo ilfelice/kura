@@ -118,6 +118,16 @@ public:
 	// top level).
 	status_t			MoveGroup(kura_id id, kura_id newParentId);
 
+	// Re-parent AND position a group in one operation: it becomes a
+	// child of newParentId, inserted immediately before the sibling
+	// beforeId (or appended among that parent's children when
+	// beforeId is kNoId). Sibling order is stored as the order of
+	// groups in the underlying list, so this both reorders siblings
+	// and moves subtrees between levels. Same cycle rejection as
+	// MoveGroup().
+	status_t			MoveGroupToPosition(kura_id id,
+							kura_id newParentId, kura_id beforeId);
+
 	// True if candidate is id itself or a descendant of id.
 	bool				IsDescendantOf(kura_id candidate,
 							kura_id id) const;
