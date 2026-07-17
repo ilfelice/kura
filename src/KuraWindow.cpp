@@ -335,13 +335,12 @@ KuraWindow::_BuildLayout()
 		{ kMsgNewDatabase, "newDB", "New database" },
 		{ kMsgOpenDatabase, "openDB", "Open database" },
 		{ kMsgSaveDatabase, "saveDB", "Save database" },
+		{ kMsgCloseDatabase, "closeDB", "Close database" },
+		{ kMsgLockDatabase, "lockDB", "Lock or unlock database" },
 		{ 0, NULL, NULL },	// separator
 		{ kMsgNewEntry, "addEntry", "Add entry" },
 		{ kMsgEditEntry, "editEntry", "Edit entry" },
 		{ kMsgDeleteEntry, "removeEntry", "Remove entry" },
-		{ 0, NULL, NULL },	// separator
-		{ kMsgCloseDatabase, "closeDB", "Close database" },
-		{ kMsgLockDatabase, "lockDB", "Lock or unlock database" },
 		{ 0, NULL, NULL },	// separator
 		{ kMsgShowSettings, "settings", "Settings" },
 	};

@@ -431,6 +431,9 @@ GroupListView::GroupListView()
 {
 	fListView = new GroupOutlineView("groupList");
 	fListView->SetSelectionMessage(new BMessage(kMsgGroupSelected));
+	// Double-click (or Enter) on a group opens the edit dialog.
+	// _EditGroup() ignores the virtual root and the locked state.
+	fListView->SetInvocationMessage(new BMessage(kMsgEditGroup));
 
 	// No frame of its own: the toolbar border above, the status
 	// bar line below, the splitter to the right and the window edge
