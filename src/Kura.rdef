@@ -10,11 +10,11 @@ resource app_signature "application/x-vnd.Kura";
 
 resource app_version {
 	major  = 0,
-	middle = 2,
+	middle = 3,
 	minor  = 0,
 	variety = B_APPV_ALPHA,
 	internal = 1,
-	short_info = "Kura - 0.2 alpha",
+	short_info = "Kura - 0.3 alpha",
 	long_info = "A password manager for Haiku"
 };
 

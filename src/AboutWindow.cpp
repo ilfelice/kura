@@ -90,7 +90,7 @@ _VersionString()
 	if (result.IsEmpty())
 		result = "Kura";
 
-	// short_info is like "Kura - 0.2 alpha"; show just the version
+	// short_info is like "Kura - 0.3 alpha"; show just the version
 	int32 dash = result.FindFirst(" - ");
 	if (dash >= 0)
 		result.Remove(0, dash + 3);
