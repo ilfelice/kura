@@ -249,29 +249,37 @@ KuraWindow::_BuildMenu()
 	fGroupsMenu = new BMenu("Groups");
 	fGroupsMenu->AddItem(new BMenuItem("New group" B_UTF8_ELLIPSIS,
 		new BMessage(kMsgNewGroup)));
-	fGroupsMenu->AddItem(new BMenuItem("Edit group" B_UTF8_ELLIPSIS,
-		new BMessage(kMsgEditGroup)));
-	fGroupsMenu->AddItem(new BMenuItem("Delete group",
-		new BMessage(kMsgDeleteGroup)));
+	fEditGroupItem = new BMenuItem("Edit group" B_UTF8_ELLIPSIS,
+		new BMessage(kMsgEditGroup));
+	fGroupsMenu->AddItem(fEditGroupItem);
+	fDeleteGroupItem = new BMenuItem("Delete group",
+		new BMessage(kMsgDeleteGroup));
+	fGroupsMenu->AddItem(fDeleteGroupItem);
 	fMenuBar->AddItem(fGroupsMenu);
 
 	// Entries menu
 	fEntriesMenu = new BMenu("Entries");
 	fEntriesMenu->AddItem(new BMenuItem("New entry" B_UTF8_ELLIPSIS,
 		new BMessage(kMsgNewEntry), 'N'));
-	fEntriesMenu->AddItem(new BMenuItem("Edit entry" B_UTF8_ELLIPSIS,
-		new BMessage(kMsgEditEntry), 'E'));
-	fEntriesMenu->AddItem(new BMenuItem("Duplicate entry",
-		new BMessage(kMsgDuplicateEntry), 'D'));
-	fEntriesMenu->AddItem(new BMenuItem("Delete entry",
-		new BMessage(kMsgDeleteEntry)));
+	fEditEntryItem = new BMenuItem("Edit entry" B_UTF8_ELLIPSIS,
+		new BMessage(kMsgEditEntry), 'E');
+	fEntriesMenu->AddItem(fEditEntryItem);
+	fDuplicateEntryItem = new BMenuItem("Duplicate entry",
+		new BMessage(kMsgDuplicateEntry), 'D');
+	fEntriesMenu->AddItem(fDuplicateEntryItem);
+	fDeleteEntryItem = new BMenuItem("Delete entry",
+		new BMessage(kMsgDeleteEntry));
+	fEntriesMenu->AddItem(fDeleteEntryItem);
 	fEntriesMenu->AddSeparatorItem();
-	fEntriesMenu->AddItem(new BMenuItem("Copy username",
-		new BMessage(kMsgCopyUsername), 'U'));
-	fEntriesMenu->AddItem(new BMenuItem("Copy password",
-		new BMessage(kMsgCopyPassword), 'C'));
-	fEntriesMenu->AddItem(new BMenuItem("Open URL",
-		new BMessage(kMsgOpenUrl), 'B'));
+	fCopyUsernameItem = new BMenuItem("Copy username",
+		new BMessage(kMsgCopyUsername), 'U');
+	fEntriesMenu->AddItem(fCopyUsernameItem);
+	fCopyPasswordItem = new BMenuItem("Copy password",
+		new BMessage(kMsgCopyPassword), 'C');
+	fEntriesMenu->AddItem(fCopyPasswordItem);
+	fOpenUrlItem = new BMenuItem("Open URL",
+		new BMessage(kMsgOpenUrl), 'B');
+	fEntriesMenu->AddItem(fOpenUrlItem);
 	fMenuBar->AddItem(fEntriesMenu);
 
 	// Tools menu
@@ -771,12 +779,14 @@ KuraWindow::MessageReceived(BMessage* message)
 			kura_id groupId = fGroupListView->SelectedGroupId();
 			fEntryListView->ShowGroup(groupId);
 			fDetailView->ShowEntry(NULL);
+			_UpdateMenus();
 			break;
 		}
 
 		// --- Entry selection ---
 		case kMsgEntrySelected:
 			_ShowSelectedEntry();
+			_UpdateMenus();
 			break;
 
 		// --- Entry operations ---
@@ -1572,6 +1582,9 @@ KuraWindow::_RefreshAll()
 	fEntryListView->Refresh();
 	_UpdateStatusBar();
 	_UpdateTitle();
+	// A refresh can change what is selected (e.g. after a delete),
+	// so keep selection-dependent actions in sync.
+	_UpdateMenus();
 }
 
 
@@ -1613,14 +1626,34 @@ KuraWindow::_UpdateMenus()
 	fToolBar->SetActionEnabled(kMsgSaveDatabase, !fIsLocked);
 	fToolBar->SetActionEnabled(kMsgCloseDatabase, !fIsLocked);
 	fToolBar->SetActionEnabled(kMsgNewEntry, !fIsLocked);
-	fToolBar->SetActionEnabled(kMsgEditEntry, !fIsLocked);
-	fToolBar->SetActionEnabled(kMsgDeleteEntry, !fIsLocked);
 	fChangePwItem->SetEnabled(!fIsLocked);
 	fLockItem->SetLabel(fIsLocked
 		? "Unlock database" B_UTF8_ELLIPSIS : "Lock database");
 	fGroupsMenu->SetEnabled(!fIsLocked);
 	fEntriesMenu->SetEnabled(!fIsLocked);
 	fEntryListView->SetSearchEnabled(!fIsLocked);
+
+	// Actions that operate on a selection are enabled only when the
+	// database is unlocked AND something suitable is selected. An
+	// entry action needs a selected entry; a group action needs a
+	// selected group other than the virtual root (which can't be
+	// edited or deleted).
+	bool hasEntry = !fIsLocked
+		&& fEntryListView->SelectedEntryId() != kNoId;
+	bool hasGroup = !fIsLocked
+		&& fGroupListView->SelectedGroupId() != kAllGroupId;
+
+	fEditEntryItem->SetEnabled(hasEntry);
+	fDuplicateEntryItem->SetEnabled(hasEntry);
+	fDeleteEntryItem->SetEnabled(hasEntry);
+	fCopyUsernameItem->SetEnabled(hasEntry);
+	fCopyPasswordItem->SetEnabled(hasEntry);
+	fOpenUrlItem->SetEnabled(hasEntry);
+	fToolBar->SetActionEnabled(kMsgEditEntry, hasEntry);
+	fToolBar->SetActionEnabled(kMsgDeleteEntry, hasEntry);
+
+	fEditGroupItem->SetEnabled(hasGroup);
+	fDeleteGroupItem->SetEnabled(hasGroup);
 }
 
 

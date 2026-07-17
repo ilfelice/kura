@@ -117,6 +117,18 @@ private:
 	BMenuItem*			fCloseItem;
 	BMenuItem*			fLockItem;
 	BMenuItem*			fChangePwItem;
+
+	// Entry actions that require a selected entry
+	BMenuItem*			fEditEntryItem;
+	BMenuItem*			fDuplicateEntryItem;
+	BMenuItem*			fDeleteEntryItem;
+	BMenuItem*			fCopyUsernameItem;
+	BMenuItem*			fCopyPasswordItem;
+	BMenuItem*			fOpenUrlItem;
+
+	// Group actions that require a selected (non-root) group
+	BMenuItem*			fEditGroupItem;
+	BMenuItem*			fDeleteGroupItem;
 	BMenu*				fGroupsMenu;
 	BMenu*				fEntriesMenu;
 	BMenu*				fRecentMenu;
