@@ -726,6 +726,42 @@ KuraWindow::MessageReceived(BMessage* message)
 			break;
 		}
 
+		// --- Group re-parented via drag ---
+		case kMsgGroupReparented:
+		{
+			if (fIsLocked)
+				break;
+
+			int32 groupId;
+			int32 newParentId;
+			if (message->FindInt32("groupId", &groupId) != B_OK
+				|| message->FindInt32("newParentId", &newParentId)
+					!= B_OK)
+				break;
+
+			const KuraGroup* group = fDatabase.GroupById(groupId);
+			if (group == NULL)
+				break;
+			BString groupName(group->name);
+
+			if (fDatabase.MoveGroup(groupId, newParentId) != B_OK)
+				break;
+
+			_RefreshAll();
+			fGroupListView->SelectGroup(groupId);
+
+			BString parentName("Root");
+			const KuraGroup* parent
+				= fDatabase.GroupById(newParentId);
+			if (parent != NULL)
+				parentName = parent->name;
+			BString status;
+			status.SetToFormat("Moved \"%s\" into \"%s\"",
+				groupName.String(), parentName.String());
+			fStatusBar->SetStatusText(status.String());
+			break;
+		}
+
 		// --- Group selection ---
 		case kMsgGroupSelected:
 		{

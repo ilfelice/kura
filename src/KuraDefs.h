@@ -99,6 +99,11 @@ enum {
 	kMsgEntryDrag			= 'edrg',
 	kMsgEntryDropped		= 'edrp',
 
+	// Group re-parenting drag & drop ("groupId"; target adds
+	// "newParentId")
+	kMsgGroupDrag			= 'gdrg',
+	kMsgGroupReparented		= 'grep',
+
 	// Password generator -> edit window ("password" string)
 	kMsgUsePassword			= 'upwd',
 

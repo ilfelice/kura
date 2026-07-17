@@ -41,6 +41,7 @@ public:
 	virtual void		Update(BView* owner, const BFont* font);
 
 	kura_id				GroupId() const { return fGroupId; }
+	bool				IsRoot() const { return fIsRoot; }
 
 private:
 	void				_UpdateIcon();

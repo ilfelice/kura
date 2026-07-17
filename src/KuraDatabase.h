@@ -111,6 +111,17 @@ public:
 	status_t			UpdateGroup(kura_id id, const KuraGroup& group);
 	status_t			RemoveGroup(kura_id id);
 
+	// Re-parent a group. Rejects moves that would create a cycle
+	// (onto itself or one of its own descendants) and no-ops when
+	// the group is already a child of newParentId. newParentId may
+	// be kNoId (top level) or kAllGroupId (the virtual root, also
+	// top level).
+	status_t			MoveGroup(kura_id id, kura_id newParentId);
+
+	// True if candidate is id itself or a descendant of id.
+	bool				IsDescendantOf(kura_id candidate,
+							kura_id id) const;
+
 	// Count entries in a group (and its children if recursive).
 	int32				CountEntriesInGroup(kura_id groupId,
 							bool recursive = true) const;

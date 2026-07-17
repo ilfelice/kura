@@ -287,29 +287,57 @@ public:
 	GroupOutlineView(const char* name)
 		:
 		BOutlineListView(name, B_SINGLE_SELECTION_LIST),
-		fDropTargetIndex(-1)
+		fDropTargetIndex(-1),
+		fDatabase(NULL)
 	{
 	}
 
-	// --- Entry drag & drop target ---
+	void SetDatabase(KuraDatabase* db) { fDatabase = db; }
+
+	// --- Starting a group drag ---
+
+	virtual bool InitiateDrag(BPoint where, int32 index,
+		bool wasSelected)
+	{
+		GroupItem* item = index < 0 ? NULL
+			: dynamic_cast<GroupItem*>(ItemAt(index));
+		// The virtual root is a fixed anchor and can't be moved.
+		if (item == NULL || item->IsRoot())
+			return false;
+
+		BMessage drag(kMsgGroupDrag);
+		drag.AddInt32("groupId", item->GroupId());
+
+		DragMessage(&drag, _MakeGroupDragBitmap(item),
+			B_OP_ALPHA, BPoint(-8, -8));
+		return true;
+	}
+
+	// --- Drag & drop target (entries and groups) ---
 
 	virtual void MouseMoved(BPoint where, uint32 code,
 		const BMessage* dragMessage)
 	{
-		if (dragMessage != NULL
-			&& dragMessage->what == kMsgEntryDrag) {
-			int32 index = code == B_EXITED_VIEW
-				? -1 : IndexOf(where);
-			_SetDropTarget(index);
-		} else if (fDropTargetIndex >= 0)
-			_SetDropTarget(-1);
+		int32 index = -1;
+		if (dragMessage != NULL && code != B_EXITED_VIEW) {
+			if (dragMessage->what == kMsgEntryDrag) {
+				index = IndexOf(where);
+			} else if (dragMessage->what == kMsgGroupDrag) {
+				// Only highlight valid re-parent targets
+				int32 hit = IndexOf(where);
+				if (_ValidGroupDrop(dragMessage, hit))
+					index = hit;
+			}
+		}
+		_SetDropTarget(index);
 
 		BOutlineListView::MouseMoved(where, code, dragMessage);
 	}
 
 	virtual void MessageReceived(BMessage* message)
 	{
-		if (message->what == kMsgEntryDrag
+		if ((message->what == kMsgEntryDrag
+				|| message->what == kMsgGroupDrag)
 			&& message->WasDropped()) {
 			BPoint where = ConvertFromScreen(message->DropPoint());
 			int32 index = IndexOf(where);
@@ -317,13 +345,28 @@ public:
 
 			GroupItem* item = index < 0 ? NULL
 				: dynamic_cast<GroupItem*>(ItemAt(index));
-			int32 entryId;
-			if (item != NULL
-				&& message->FindInt32("entryId", &entryId) == B_OK) {
-				BMessage dropped(kMsgEntryDropped);
-				dropped.AddInt32("entryId", entryId);
-				dropped.AddInt32("groupId", item->GroupId());
-				Window()->PostMessage(&dropped);
+			if (item == NULL) {
+				return;
+			}
+
+			if (message->what == kMsgEntryDrag) {
+				int32 entryId;
+				if (message->FindInt32("entryId", &entryId) == B_OK) {
+					BMessage dropped(kMsgEntryDropped);
+					dropped.AddInt32("entryId", entryId);
+					dropped.AddInt32("groupId", item->GroupId());
+					Window()->PostMessage(&dropped);
+				}
+			} else {	// kMsgGroupDrag
+				int32 groupId;
+				if (_ValidGroupDrop(message, index)
+					&& message->FindInt32("groupId", &groupId)
+						== B_OK) {
+					BMessage dropped(kMsgGroupReparented);
+					dropped.AddInt32("groupId", groupId);
+					dropped.AddInt32("newParentId", item->GroupId());
+					Window()->PostMessage(&dropped);
+				}
 			}
 			return;
 		}
@@ -404,6 +447,86 @@ public:
 	}
 
 private:
+	// True if dropping the dragged group onto the item at index
+	// would be a valid re-parent (not onto itself, not onto a
+	// descendant, not onto its current parent, target exists).
+	bool _ValidGroupDrop(const BMessage* drag, int32 index)
+	{
+		if (fDatabase == NULL || index < 0)
+			return false;
+		GroupItem* target = dynamic_cast<GroupItem*>(ItemAt(index));
+		if (target == NULL)
+			return false;
+
+		int32 groupId;
+		if (drag->FindInt32("groupId", &groupId) != B_OK)
+			return false;
+
+		kura_id dragged = groupId;
+		kura_id newParent = target->GroupId();
+
+		// Normalize the virtual root to top level
+		kura_id normalizedParent = target->IsRoot()
+			? kNoId : newParent;
+
+		const KuraGroup* group = fDatabase->GroupById(dragged);
+		if (group == NULL)
+			return false;
+
+		// Already parented there -> nothing to do
+		if (group->parentId == normalizedParent)
+			return false;
+
+		// Onto itself or a descendant -> would create a cycle
+		if (normalizedParent != kNoId
+			&& fDatabase->IsDescendantOf(normalizedParent, dragged))
+			return false;
+
+		return true;
+	}
+
+	// A translucent tag showing the group name, like the entry drag.
+	BBitmap* _MakeGroupDragBitmap(GroupItem* item)
+	{
+		BString label(item->Text());
+		if (label.Length() == 0)
+			label = "(group)";
+
+		BFont font(be_plain_font);
+		font_height fontHeight;
+		font.GetHeight(&fontHeight);
+		float height = ceilf(fontHeight.ascent)
+			+ ceilf(fontHeight.descent) + 8;
+		float width = font.StringWidth(label.String()) + 16;
+
+		BBitmap* bitmap = new(std::nothrow) BBitmap(
+			BRect(0, 0, width - 1, height - 1), B_RGBA32, true);
+		if (bitmap == NULL)
+			return NULL;
+
+		BView* canvas = new BView(bitmap->Bounds(), "dragCanvas",
+			B_FOLLOW_NONE, 0);
+		bitmap->AddChild(canvas);
+		bitmap->Lock();
+
+		rgb_color base = ui_color(B_PANEL_BACKGROUND_COLOR);
+		rgb_color fill = base;
+		fill.alpha = 200;
+		canvas->SetDrawingMode(B_OP_COPY);
+		canvas->SetHighColor(fill);
+		canvas->FillRect(canvas->Bounds());
+		canvas->SetHighColor(tint_color(base, B_DARKEN_2_TINT));
+		canvas->StrokeRect(canvas->Bounds());
+		canvas->SetHighColor(ui_color(B_PANEL_TEXT_COLOR));
+		canvas->SetLowColor(fill);
+		canvas->MovePenTo(8, 4 + ceilf(fontHeight.ascent));
+		canvas->DrawString(label.String());
+		canvas->Sync();
+		bitmap->Unlock();
+
+		return bitmap;
+	}
+
 	void _SetDropTarget(int32 index)
 	{
 		if (index == fDropTargetIndex)
@@ -416,6 +539,7 @@ private:
 	}
 
 	int32 fDropTargetIndex;
+	KuraDatabase* fDatabase;
 };
 
 
@@ -463,6 +587,7 @@ void
 GroupListView::SetDatabase(KuraDatabase* db)
 {
 	fDatabase = db;
+	static_cast<GroupOutlineView*>(fListView)->SetDatabase(db);
 	if (db == NULL)
 		fRootLabel = "Root";
 	Refresh();

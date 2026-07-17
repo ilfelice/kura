@@ -190,6 +190,54 @@ KuraDatabase::UpdateGroup(kura_id id, const KuraGroup& group)
 }
 
 
+bool
+KuraDatabase::IsDescendantOf(kura_id candidate, kura_id id) const
+{
+	// Walk up from candidate to the root; if we pass through id,
+	// candidate is id or one of its descendants.
+	kura_id current = candidate;
+	while (current != kNoId && current != kAllGroupId) {
+		if (current == id)
+			return true;
+		const KuraGroup* group = GroupById(current);
+		if (group == NULL)
+			break;
+		current = group->parentId;
+	}
+	return false;
+}
+
+
+status_t
+KuraDatabase::MoveGroup(kura_id id, kura_id newParentId)
+{
+	const KuraGroup* group = GroupById(id);
+	if (group == NULL)
+		return B_ENTRY_NOT_FOUND;
+
+	// Normalize the virtual root to "top level" (kNoId)
+	if (newParentId == kAllGroupId)
+		newParentId = kNoId;
+
+	// No-op if already parented there
+	if (group->parentId == newParentId)
+		return B_OK;
+
+	// Reject cycles: the new parent must not be the group itself
+	// or any of its descendants
+	if (newParentId != kNoId && IsDescendantOf(newParentId, id))
+		return B_NOT_ALLOWED;
+
+	// New parent must exist (unless moving to top level)
+	if (newParentId != kNoId && GroupById(newParentId) == NULL)
+		return B_ENTRY_NOT_FOUND;
+
+	KuraGroup updated(*group);
+	updated.parentId = newParentId;
+	return UpdateGroup(id, updated);
+}
+
+
 status_t
 KuraDatabase::RemoveGroup(kura_id id)
 {
