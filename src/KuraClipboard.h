@@ -15,6 +15,7 @@
 #ifndef KURA_CLIPBOARD_H
 #define KURA_CLIPBOARD_H
 
+
 #include <Locker.h>
 #include <String.h>
 
@@ -40,5 +41,6 @@ private:
 	static BMessageRunner*	sRunner;
 	static BLocker		sLock;
 };
+
 
 #endif // KURA_CLIPBOARD_H

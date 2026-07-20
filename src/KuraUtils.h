@@ -4,16 +4,16 @@
  *
  * Small shared helpers.
  */
-
 #ifndef KURA_UTILS_H
 #define KURA_UTILS_H
+
+
+#include <string.h>
 
 #include <Roster.h>
 #include <Screen.h>
 #include <String.h>
 #include <Window.h>
-
-#include <cstring>
 
 
 // Best-effort scrubbing of a BString's contents from memory.

@@ -5,7 +5,9 @@
  * Application entry point and BApplication implementation.
  */
 
+
 #include "KuraApp.h"
+
 #include "KuraClipboard.h"
 #include "KuraDefs.h"
 #include "KuraWindow.h"

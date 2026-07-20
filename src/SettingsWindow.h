@@ -8,9 +8,9 @@
  * target window as a kMsgSettingsChanged message carrying the full
  * option state; the target persists and applies it.
  */
-
 #ifndef SETTINGS_WINDOW_H
 #define SETTINGS_WINDOW_H
+
 
 #include <Messenger.h>
 #include <Window.h>
@@ -64,5 +64,6 @@ private:
 	bool				fOriginalLockOnMinimize;
 	bool				fOriginalAutoSaveOnLock;
 };
+
 
 #endif // SETTINGS_WINDOW_H

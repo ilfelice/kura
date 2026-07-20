@@ -5,11 +5,12 @@
  * Status bar implementation.
  */
 
+
 #include "StatusBar.h"
 
-#include <ControlLook.h>
+#include <math.h>
 
-#include <cmath>
+#include <ControlLook.h>
 
 
 StatusBar::StatusBar()

@@ -15,11 +15,12 @@
 #ifndef KURA_DATABASE_H
 #define KURA_DATABASE_H
 
+
+#include <time.h>
+
 #include <Messenger.h>
 #include <ObjectList.h>
 #include <String.h>
-
-#include <ctime>
 
 
 // Unique ID type for groups and entries
@@ -177,5 +178,6 @@ private:
 	BMessenger			fTarget;
 	bool				fHasTarget;
 };
+
 
 #endif // KURA_DATABASE_H

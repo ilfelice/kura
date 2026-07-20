@@ -5,15 +5,17 @@
  * Clipboard handling with verified timed clear.
  */
 
+
 #include "KuraClipboard.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
+
+#include <string.h>
 
 #include <Application.h>
 #include <Clipboard.h>
 #include <MessageRunner.h>
 
-#include <cstring>
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 BString KuraClipboard::sLastCopied;

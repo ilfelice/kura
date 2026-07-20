@@ -6,8 +6,11 @@
  * TimeZoneListItem from the Haiku Time preferences applet.
  */
 
+
 #include "GroupListView.h"
-#include "KuraDefs.h"
+
+#include <math.h>
+#include <new>
 
 #include <Application.h>
 #include <Bitmap.h>
@@ -18,8 +21,7 @@
 #include <Resources.h>
 #include <ScrollView.h>
 
-#include <cmath>
-#include <new>
+#include "KuraDefs.h"
 
 
 // --- Icon data loading (cached raw HVIF buffers) ---

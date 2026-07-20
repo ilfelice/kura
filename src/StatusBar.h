@@ -8,9 +8,9 @@
  * separate BSeparatorView on top would sit 2px above the knob's top
  * edge. The right end stays clear of the knob.
  */
-
 #ifndef STATUS_BAR_H
 #define STATUS_BAR_H
+
 
 #include <String.h>
 #include <View.h>
@@ -34,5 +34,6 @@ private:
 	BString				fStatusText;
 	BString				fCountText;
 };
+
 
 #endif // STATUS_BAR_H

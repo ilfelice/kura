@@ -5,6 +5,7 @@
  * ColumnListView-based entry list implementation.
  */
 
+
 #include "EntryListView.h"
 #include "SearchTextControl.h"
 #include "KuraDefs.h"

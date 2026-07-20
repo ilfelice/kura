@@ -10,9 +10,9 @@
  * Manages the database lifecycle: load, save, lock/unlock.
  * Coordinates communication between the three panes.
  */
-
 #ifndef KURA_WINDOW_H
 #define KURA_WINDOW_H
+
 
 #include <MenuBar.h>
 #include <Window.h>
@@ -168,5 +168,6 @@ private:
 	BMessageRunner*		fAutoLockRunner;
 	bigtime_t			fLastActivity;
 };
+
 
 #endif // KURA_WINDOW_H

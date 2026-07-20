@@ -9,9 +9,9 @@
  * Uses OpenSSL RAND_bytes with rejection sampling, so the character
  * selection is uniform (no modulo bias).
  */
-
 #ifndef PASSWORD_GENERATOR_WINDOW_H
 #define PASSWORD_GENERATOR_WINDOW_H
+
 
 #include <Messenger.h>
 #include <String.h>
@@ -55,5 +55,6 @@ private:
 			BMessenger			fTarget;
 			bool				fHasTarget;
 };
+
 
 #endif // PASSWORD_GENERATOR_WINDOW_H

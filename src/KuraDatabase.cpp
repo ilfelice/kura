@@ -6,13 +6,14 @@
  * Uses a simple hand-rolled JSON parser/writer to avoid external dependencies.
  */
 
+
 #include "KuraDatabase.h"
 
-#include <Message.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <Message.h>
 
 
 // --- KuraEntry ---

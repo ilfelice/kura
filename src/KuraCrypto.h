@@ -15,12 +15,12 @@
  *   [4 bytes]  Ciphertext length: uint32
  *   [N bytes]  Ciphertext (encrypted JSON payload)
  */
-
 #ifndef KURA_CRYPTO_H
 #define KURA_CRYPTO_H
 
-#include <SupportDefs.h>
+
 #include <String.h>
+#include <SupportDefs.h>
 
 // File format constants
 static const char kKuraMagic[4] = {'K', 'U', 'R', 'A'};
@@ -70,5 +70,6 @@ private:
 	BString				fErrorString;
 	bool				fBackupEnabled;
 };
+
 
 #endif // KURA_CRYPTO_H

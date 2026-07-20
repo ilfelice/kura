@@ -4,9 +4,9 @@
  *
  * Right panel displaying the fields of the currently selected entry.
  */
-
 #ifndef DETAIL_VIEW_H
 #define DETAIL_VIEW_H
+
 
 #include <View.h>
 
@@ -52,5 +52,6 @@ private:
 	bool				fPasswordVisible;
 	kura_id				fCurrentEntryId;
 };
+
 
 #endif // DETAIL_VIEW_H

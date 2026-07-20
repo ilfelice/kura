@@ -4,7 +4,6 @@
  *
  * Application-wide constants and message definitions.
  */
-
 #ifndef KURA_DEFS_H
 #define KURA_DEFS_H
 

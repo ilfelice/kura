@@ -6,9 +6,9 @@
  * to set a password when creating a new database, or to change the
  * master password (current + new + confirm).
  */
-
 #ifndef UNLOCK_WINDOW_H
 #define UNLOCK_WINDOW_H
+
 
 #include <String.h>
 #include <Window.h>
@@ -48,5 +48,6 @@ private:
 	BString				fDbPath;
 	bool				fSubmitted;
 };
+
 
 #endif // UNLOCK_WINDOW_H

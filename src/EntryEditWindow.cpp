@@ -5,6 +5,7 @@
  * Entry creation/editing dialog implementation.
  */
 
+
 #include "EntryEditWindow.h"
 #include "KuraUtils.h"
 #include "FieldView.h"

@@ -5,9 +5,10 @@
  * Modal unlock dialog implementation.
  */
 
+
 #include "UnlockWindow.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
+
+#include <string.h>
 
 #include <Button.h>
 #include <GridLayout.h>
@@ -15,7 +16,8 @@
 #include <StringView.h>
 #include <TextControl.h>
 
-#include <cstring>
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 UnlockWindow::UnlockWindow(BRect frame, unlock_mode mode,

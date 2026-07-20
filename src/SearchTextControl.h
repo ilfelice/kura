@@ -9,9 +9,9 @@
  * so parent-side drawing there would be hidden). Haiku has no native
  * search widget, so this is a small self-contained one.
  */
-
 #ifndef SEARCH_TEXT_CONTROL_H
 #define SEARCH_TEXT_CONTROL_H
+
 
 #include <Messenger.h>
 #include <TextControl.h>
@@ -55,5 +55,6 @@ private:
 	BMessenger			fForwardTarget;
 	bool				fClearCursor;
 };
+
 
 #endif // SEARCH_TEXT_CONTROL_H

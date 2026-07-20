@@ -5,10 +5,14 @@
  * Password generator implementation.
  */
 
+
 #include "PasswordGeneratorWindow.h"
-#include "KuraClipboard.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
+
+#include <math.h>
+#include <stdint.h>
+#include <string.h>
+
+#include <openssl/rand.h>
 
 #include <Button.h>
 #include <CheckBox.h>
@@ -20,11 +24,9 @@
 #include <TextControl.h>
 #include <UTF8.h>
 
-#include <openssl/rand.h>
-
-#include <cmath>
-#include <cstdint>
-#include <cstring>
+#include "KuraClipboard.h"
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 // Internal messages

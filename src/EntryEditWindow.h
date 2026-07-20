@@ -5,9 +5,9 @@
  * Dialog for creating or editing a password entry.
  * Fields: title, group, username, password, URL, notes.
  */
-
 #ifndef ENTRY_EDIT_WINDOW_H
 #define ENTRY_EDIT_WINDOW_H
+
 
 #include <Window.h>
 
@@ -51,5 +51,6 @@ private:
 	kura_id				fEntryId;	// kNoId for new entries
 	kura_id				fGroupId;
 };
+
 
 #endif // ENTRY_EDIT_WINDOW_H

@@ -5,17 +5,18 @@
  * Implementation of AES-256-GCM encryption/decryption with PBKDF2.
  */
 
+
 #include "KuraCrypto.h"
+
+#include <string.h>
+
+#include <openssl/evp.h>
+#include <openssl/rand.h>
 
 #include <ByteOrder.h>
 #include <Entry.h>
 #include <File.h>
 #include <Path.h>
-
-#include <openssl/evp.h>
-#include <openssl/rand.h>
-
-#include <cstring>
 
 
 KuraCrypto::KuraCrypto()

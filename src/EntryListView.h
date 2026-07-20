@@ -9,14 +9,16 @@
 #ifndef ENTRY_LIST_VIEW_H
 #define ENTRY_LIST_VIEW_H
 
-#include <ColumnListView.h>
-#include <ColumnTypes.h>
+
 #include <View.h>
 
-class SearchTextControl;
+#include <ColumnListView.h>
+#include <ColumnTypes.h>
 
 #include "KuraDatabase.h"
 
+
+class SearchTextControl;
 
 // Row that holds a reference to a KuraEntry
 class EntryRow : public BRow {

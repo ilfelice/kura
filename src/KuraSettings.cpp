@@ -5,18 +5,21 @@
  * Persists UI state as a flattened BMessage.
  */
 
-#include "KuraSettings.h"
-#include "KuraDefs.h"
 
-#include <ColumnListView.h>
-#include <ColumnTypes.h>
+#include "KuraSettings.h"
+
+#include <stdio.h>
+
 #include <File.h>
-#include <ObjectList.h>
 #include <FindDirectory.h>
+#include <ObjectList.h>
 #include <Path.h>
 #include <SplitView.h>
 
-#include <cstdio>
+#include <ColumnListView.h>
+#include <ColumnTypes.h>
+
+#include "KuraDefs.h"
 
 
 static const char* kSettingsFileName = "settings";

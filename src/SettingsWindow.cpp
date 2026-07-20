@@ -5,15 +5,18 @@
  * Settings dialog implementation.
  */
 
+
 #include "SettingsWindow.h"
-#include "KuraDefs.h"
 
 #include <Button.h>
 #include <CheckBox.h>
 #include <LayoutBuilder.h>
 #include <SpaceLayoutItem.h>
 #include <StringView.h>
+
 #include <private/interface/Spinner.h>
+
+#include "KuraDefs.h"
 
 
 // Internal messages

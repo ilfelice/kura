@@ -6,25 +6,27 @@
  * Draws icons manually with alpha compositing.
  */
 
+
 #include "FieldView.h"
-#include "KuraUtils.h"
+
+#include <math.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <Application.h>
 #include <Bitmap.h>
 #include <ControlLook.h>
 #include <Cursor.h>
 #include <IconUtils.h>
-#include <Messenger.h>
 #include <MessageRunner.h>
+#include <Messenger.h>
 #include <Region.h>
 #include <Resources.h>
 #include <Roster.h>
 #include <TextView.h>
 #include <Window.h>
 
-#include <cmath>
-#include <cstdlib>
-#include <cstring>
+#include "KuraUtils.h"
 
 
 static const float kButtonPad = 4.0;

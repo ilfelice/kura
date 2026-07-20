@@ -5,43 +5,46 @@
  * Main window implementation.
  */
 
+
 #include "KuraWindow.h"
-#include "KuraClipboard.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
-#include "DetailView.h"
-#include "EntryEditWindow.h"
-#include "EntryListView.h"
-#include "GroupEditWindow.h"
-#include "GroupListView.h"
-#include "AboutWindow.h"
-#include "KuraCsvImport.h"
-#include "SettingsWindow.h"
-#include "StatusBar.h"
-#include "PasswordGeneratorWindow.h"
+
+#include <stdio.h>
+#include <string.h>
 
 #include <Alert.h>
 #include <Application.h>
 #include <Bitmap.h>
 #include <ControlLook.h>
-#include <IconUtils.h>
-#include <Resources.h>
-#include <private/shared/ToolBar.h>
 #include <Directory.h>
 #include <Entry.h>
 #include <File.h>
 #include <FilePanel.h>
 #include <FindDirectory.h>
+#include <IconUtils.h>
 #include <LayoutBuilder.h>
 #include <Menu.h>
 #include <MenuItem.h>
 #include <MessageRunner.h>
 #include <Path.h>
+#include <Resources.h>
 #include <Screen.h>
 #include <SplitView.h>
 
-#include <cstring>
-#include <cstdio>
+#include <private/shared/ToolBar.h>
+
+#include "AboutWindow.h"
+#include "DetailView.h"
+#include "EntryEditWindow.h"
+#include "EntryListView.h"
+#include "GroupEditWindow.h"
+#include "GroupListView.h"
+#include "KuraClipboard.h"
+#include "KuraCsvImport.h"
+#include "KuraDefs.h"
+#include "KuraUtils.h"
+#include "PasswordGeneratorWindow.h"
+#include "SettingsWindow.h"
+#include "StatusBar.h"
 
 
 // A single 1px border line spanning the full window width below

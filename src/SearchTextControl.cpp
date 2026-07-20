@@ -5,7 +5,10 @@
  * Search field implementation.
  */
 
+
 #include "SearchTextControl.h"
+
+#include <math.h>
 
 #include <ControlLook.h>
 #include <Cursor.h>
@@ -13,8 +16,6 @@
 #include <Message.h>
 #include <MessageFilter.h>
 #include <Window.h>
-
-#include <cmath>
 
 
 // Filter installed on the internal text view. The text view sits on

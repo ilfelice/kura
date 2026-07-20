@@ -15,9 +15,9 @@
  * appropriate size for the current font, ensuring crisp display
  * at any font size.
  */
-
 #ifndef FIELD_VIEW_H
 #define FIELD_VIEW_H
+
 
 #include <String.h>
 #include <View.h>
@@ -102,5 +102,6 @@ private:
 	int32				fFlashButton;	// index of button being flashed, or -1
 	float				fRenderedIconSize;	// size icons were last rendered at
 };
+
 
 #endif // FIELD_VIEW_H

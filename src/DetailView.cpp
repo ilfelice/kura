@@ -5,6 +5,7 @@
  * Detail panel implementation showing entry fields.
  */
 
+
 #include "DetailView.h"
 #include "FieldView.h"
 #include "KuraClipboard.h"

@@ -5,9 +5,9 @@
  * Persists UI state: window frame, split positions, column state.
  * Stored as a flattened BMessage in the user settings directory.
  */
-
 #ifndef KURA_SETTINGS_H
 #define KURA_SETTINGS_H
+
 
 #include <Message.h>
 #include <Rect.h>
@@ -68,5 +68,6 @@ public:
 private:
 	BMessage			fSettings;
 };
+
 
 #endif // KURA_SETTINGS_H

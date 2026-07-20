@@ -10,9 +10,9 @@
  * The first item is always the virtual "Root" group (labelled with
  * the database name when set), which shows every entry.
  */
-
 #ifndef GROUP_LIST_VIEW_H
 #define GROUP_LIST_VIEW_H
+
 
 #include <List.h>
 #include <OutlineListView.h>

@@ -4,9 +4,9 @@
  *
  * Dialog for creating or editing a group (folder).
  */
-
 #ifndef GROUP_EDIT_WINDOW_H
 #define GROUP_EDIT_WINDOW_H
+
 
 #include <Window.h>
 
@@ -42,5 +42,6 @@ private:
 	kura_id				fParentId;
 	BString				fIcon;
 };
+
 
 #endif // GROUP_EDIT_WINDOW_H

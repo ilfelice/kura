@@ -22,9 +22,9 @@
  * shares it. KeePassXC "Created"/"Last Modified" timestamps are
  * preserved when present.
  */
-
 #ifndef KURA_CSV_IMPORT_H
 #define KURA_CSV_IMPORT_H
+
 
 #include <String.h>
 #include <SupportDefs.h>
@@ -56,5 +56,6 @@ private:
 	int32				fSkipped;
 	BString				fError;
 };
+
 
 #endif // KURA_CSV_IMPORT_H

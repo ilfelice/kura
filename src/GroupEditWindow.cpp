@@ -5,9 +5,8 @@
  * Group creation/editing dialog implementation.
  */
 
+
 #include "GroupEditWindow.h"
-#include "KuraUtils.h"
-#include "KuraDefs.h"
 
 #include <Button.h>
 #include <LayoutBuilder.h>
@@ -15,6 +14,9 @@
 #include <MenuField.h>
 #include <MenuItem.h>
 #include <TextControl.h>
+
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 // Internal messages

@@ -5,6 +5,7 @@
  * About dialog implementation.
  */
 
+
 #include "AboutWindow.h"
 #include "KuraDefs.h"
 #include "KuraUtils.h"
