@@ -1,8 +1,6 @@
 /*
- * KuraClipboard.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Centralized clipboard handling with timed auto-clear.
  *

@@ -1,8 +1,6 @@
 /*
- * StatusBar.cpp
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Status bar implementation.
  */

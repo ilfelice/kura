@@ -1,12 +1,11 @@
 /*
- * AboutWindow.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * About dialog: application icon, name, version and a scrollable
  * credits/description area. Modeled on the standard Haiku about box.
  */
+
 #ifndef ABOUT_WINDOW_H
 #define ABOUT_WINDOW_H
 

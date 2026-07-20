@@ -1,8 +1,6 @@
 /*
- * KuraWindow.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Main application window. Three-pane layout:
  *   Left:   GroupListView (sidebar with group/folder tree)
@@ -12,6 +10,7 @@
  * Manages the database lifecycle: load, save, lock/unlock.
  * Coordinates communication between the three panes.
  */
+
 #ifndef KURA_WINDOW_H
 #define KURA_WINDOW_H
 

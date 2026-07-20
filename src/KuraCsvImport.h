@@ -1,8 +1,6 @@
 /*
- * KuraCsvImport.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Imports entries from KeePass-style CSV files.
  *
@@ -24,6 +22,7 @@
  * shares it. KeePassXC "Created"/"Last Modified" timestamps are
  * preserved when present.
  */
+
 #ifndef KURA_CSV_IMPORT_H
 #define KURA_CSV_IMPORT_H
 

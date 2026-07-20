@@ -1,8 +1,6 @@
 /*
- * PasswordGeneratorWindow.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Password generator dialog. Can run standalone (Tools menu, offers
  * "Copy") or attached to an entry edit dialog (offers "Use", which
@@ -11,6 +9,7 @@
  * Uses OpenSSL RAND_bytes with rejection sampling, so the character
  * selection is uniform (no modulo bias).
  */
+
 #ifndef PASSWORD_GENERATOR_WINDOW_H
 #define PASSWORD_GENERATOR_WINDOW_H
 

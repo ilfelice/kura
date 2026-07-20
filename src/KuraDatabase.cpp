@@ -1,8 +1,6 @@
 /*
- * KuraDatabase.cpp
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * In-memory database with JSON serialization.
  * Uses a simple hand-rolled JSON parser/writer to avoid external dependencies.

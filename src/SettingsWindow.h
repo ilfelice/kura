@@ -1,8 +1,6 @@
 /*
- * SettingsWindow.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Application settings dialog. Follows the Haiku preferences
  * convention: changes apply instantly (no OK/Cancel), with
@@ -10,6 +8,7 @@
  * target window as a kMsgSettingsChanged message carrying the full
  * option state; the target persists and applies it.
  */
+
 #ifndef SETTINGS_WINDOW_H
 #define SETTINGS_WINDOW_H
 

@@ -1,8 +1,6 @@
 /*
- * GroupListView.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Sidebar view showing the group/folder tree, KeePass-style:
  * a BOutlineListView with native expand/collapse latches, vector
@@ -12,6 +10,7 @@
  * The first item is always the virtual "Root" group (labelled with
  * the database name when set), which shows every entry.
  */
+
 #ifndef GROUP_LIST_VIEW_H
 #define GROUP_LIST_VIEW_H
 

@@ -1,8 +1,6 @@
 /*
- * StatusBar.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * Bottom status bar. Exactly as tall as a horizontal scroll bar so
  * it lines up flush with the document window's resize knob, and
@@ -10,6 +8,7 @@
  * separate BSeparatorView on top would sit 2px above the knob's top
  * edge. The right end stays clear of the knob.
  */
+
 #ifndef STATUS_BAR_H
 #define STATUS_BAR_H
 

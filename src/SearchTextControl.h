@@ -1,8 +1,6 @@
 /*
- * SearchTextControl.h
- * Kura - Password Manager for Haiku
+ * Copyright 2026 Il Felice. All rights reserved.
  * Distributed under the terms of the MIT License.
- * Copyright 2026 Il Felice.
  *
  * A BTextControl for search fields with a clickable clear "x" shown
  * inside the right edge when it contains text; Escape also clears
@@ -11,6 +9,7 @@
  * so parent-side drawing there would be hidden). Haiku has no native
  * search widget, so this is a small self-contained one.
  */
+
 #ifndef SEARCH_TEXT_CONTROL_H
 #define SEARCH_TEXT_CONTROL_H
 
