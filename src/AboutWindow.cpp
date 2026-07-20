@@ -13,6 +13,7 @@
 #include <Application.h>
 #include <Bitmap.h>
 #include <Button.h>
+#include <ControlLook.h>
 #include <File.h>
 #include <Font.h>
 #include <GroupView.h>
@@ -171,7 +172,14 @@ AboutWindow::AboutWindow(BWindow* target)
 	fTextView(NULL),
 	fTarget(target)
 {
-	IconView* iconView = new IconView(_AppIcon(64));
+	// Scale the icon with the system font, exactly as Tracker and
+	// other native apps do (ComposeIconSize: 64 at a 12pt plain
+	// font, proportionally larger at bigger font sizes). The HVIF
+	// icon is rasterized directly at this size, so this also gives
+	// it more pixels for its fine detail on large-font systems.
+	float iconSize
+		= be_control_look->ComposeIconSize(64).Width() + 1;
+	IconView* iconView = new IconView(_AppIcon(iconSize));
 
 	// App name, large and bold
 	BStringView* nameView = new BStringView("name", kAppName);
