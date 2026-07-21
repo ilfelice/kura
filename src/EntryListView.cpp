@@ -7,15 +7,16 @@
 
 
 #include "EntryListView.h"
-#include "SearchTextControl.h"
-#include "KuraDefs.h"
+
+#include <stdio.h>
+#include <time.h>
 
 #include <Bitmap.h>
 #include <LayoutBuilder.h>
 #include <TextControl.h>
 
-#include <cstdio>
-#include <ctime>
+#include "KuraDefs.h"
+#include "SearchTextControl.h"
 
 
 // Column indices

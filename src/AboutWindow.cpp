@@ -7,8 +7,9 @@
 
 
 #include "AboutWindow.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
+
+#include <new>
+#include <string.h>
 
 #include <AppFileInfo.h>
 #include <Application.h>
@@ -28,8 +29,8 @@
 #include <TextView.h>
 #include <View.h>
 
-#include <cstring>
-#include <new>
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 enum {
@@ -42,7 +43,7 @@ enum {
 static const char* kAppName = "Kura";
 
 static const char* kAppDescription =
-	"Kura (\xe2\x80\x9c\xe8\x94\xb5\xe2\x80\x9d, a traditional Japanese "
+	"Kura (“蔵”, a traditional Japanese "
 	"storehouse) is a password manager for the Haiku operating system. "
 	"It keeps your usernames, passwords and related secrets in a single "
 	"encrypted database that only you can open.";

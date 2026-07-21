@@ -1260,7 +1260,7 @@ KuraWindow::_Lock(bool showUnlockDialog, bool saveChanges)
 	// Transparency: never save silently without saying so
 	if (savedChanges) {
 		fStatusBar->SetStatusText(
-			"Changes saved \xc2\xb7 database locked");
+			"Changes saved · database locked");
 	}
 
 	if (showUnlockDialog)
@@ -1609,7 +1609,7 @@ KuraWindow::_UpdateTitle()
 	BString title("Kura");
 	if (!fIsLocked) {
 		BPath path(fDbPath.String());
-		title << " \xe2\x80\x94 " << path.Leaf();
+		title << " — " << path.Leaf();
 		if (fDatabase.IsModified())
 			title << " *";
 	}
@@ -1717,7 +1717,7 @@ KuraWindow::_UpdateStatusBar()
 		fStatusBar->SetStatusText("Unlocked");
 	} else if (fDatabase.IsModified()
 		&& !fSettings.AutoSaveOnLock()) {
-		fStatusBar->SetStatusText("Unlocked \xc2\xb7 auto-lock "
+		fStatusBar->SetStatusText("Unlocked · auto-lock "
 			"paused (unsaved changes)");
 	} else {
 		bigtime_t remaining = timeout
@@ -1730,7 +1730,7 @@ KuraWindow::_UpdateStatusBar()
 		seconds %= 60;
 
 		BString status;
-		status.SetToFormat("Unlocked \xc2\xb7 Auto-lock in %d:%02d",
+		status.SetToFormat("Unlocked · Auto-lock in %d:%02d",
 			minutes, seconds);
 		fStatusBar->SetStatusText(status.String());
 	}

@@ -7,19 +7,20 @@
 
 
 #include "DetailView.h"
-#include "FieldView.h"
-#include "KuraClipboard.h"
-#include "KuraDefs.h"
-#include "KuraUtils.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
 #include <LayoutBuilder.h>
 #include <ScrollView.h>
 #include <StringView.h>
 #include <TextView.h>
 
-#include <cstdio>
-#include <cstring>
-#include <ctime>
+#include "FieldView.h"
+#include "KuraClipboard.h"
+#include "KuraDefs.h"
+#include "KuraUtils.h"
 
 
 // Resource IDs (must match Kura.rdef)
@@ -197,7 +198,7 @@ DetailView::_GroupPath(kura_id groupId) const
 		if (group == NULL)
 			break;
 		if (path.Length() > 0)
-			path.Prepend(" \xe2\x96\xb8 ");
+			path.Prepend(" ▸ ");
 		path.Prepend(group->name);
 		current = group->parentId;
 	}
@@ -216,8 +217,8 @@ DetailView::ShowEntry(const KuraEntry* entry)
 		fCurrentEntryId = kNoId;
 		fTitleView->SetText("No entry selected");
 		fGroupPathView->SetText("");
-		fUsernameField->SetText("\xe2\x80\x94");
-		fPasswordField->SetText("\xe2\x80\x94");
+		fUsernameField->SetText("—");
+		fPasswordField->SetText("—");
 		fUrlField->SetText("");
 		fCreatedView->SetText("");
 		fModifiedView->SetText("");
@@ -264,7 +265,7 @@ DetailView::ShowEntry(const KuraEntry* entry)
 	fActualPassword = entry->password;
 	BString masked;
 	for (int i = 0; i < entry->password.Length() && i < 20; i++)
-		masked << "\xe2\x80\xa2";
+		masked << "•";
 	fPasswordField->SetText(masked.String());
 	fPasswordField->SetEnabled(true);
 
@@ -303,7 +304,7 @@ DetailView::TogglePasswordVisible()
 	} else {
 		BString masked;
 		for (int i = 0; i < fActualPassword.Length() && i < 20; i++)
-			masked << "\xe2\x80\xa2";
+			masked << "•";
 		fPasswordField->SetText(masked.String());
 		fPasswordField->SetButtonIcon(kMsgTogglePassword, kIconHide);
 	}

@@ -7,10 +7,8 @@
 
 
 #include "EntryEditWindow.h"
-#include "KuraUtils.h"
-#include "FieldView.h"
-#include "KuraDefs.h"
-#include "PasswordGeneratorWindow.h"
+
+#include <string.h>
 
 #include <Button.h>
 #include <LayoutBuilder.h>
@@ -23,7 +21,10 @@
 #include <TextControl.h>
 #include <TextView.h>
 
-#include <cstring>
+#include "FieldView.h"
+#include "KuraDefs.h"
+#include "KuraUtils.h"
+#include "PasswordGeneratorWindow.h"
 
 
 // Resource IDs (must match Kura.rdef)

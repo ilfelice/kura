@@ -37,7 +37,7 @@ static const uint32 kMsgFlashDone = '_fld';
 static const bigtime_t kFlashDuration = 150000; // 150ms
 
 // Bullet character for password masking (UTF-8 BULLET U+2022)
-static const char* kBullet = "\xe2\x80\xa2";
+static const char* kBullet = "•";
 
 
 // Inner BTextView subclass that notifies the parent FieldView on focus changes
