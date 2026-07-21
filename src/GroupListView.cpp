@@ -78,7 +78,7 @@ _FolderIconData(size_t& size)
 
 // Resolve the icon data for an item: a custom per-group resource
 // name wins, then the built-in "folder" resource for groups (or
-// "icon-root" for the root item), then the app's own icon for the
+// "root" for the root item), then the app's own icon for the
 // root, then the system folder icon.
 static const uint8*
 _IconDataFor(const char* customName, bool isRoot, size_t& size)
@@ -88,7 +88,7 @@ _IconDataFor(const char* customName, bool isRoot, size_t& size)
 		return data;
 
 	if (isRoot) {
-		data = _LoadNamedIcon("icon-root", size);
+		data = _LoadNamedIcon("root", size);
 		if (data != NULL)
 			return data;
 		data = _LoadNamedIcon("BEOS:ICON", size);
