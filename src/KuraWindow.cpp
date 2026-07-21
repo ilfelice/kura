@@ -14,6 +14,7 @@
 #include <Alert.h>
 #include <Application.h>
 #include <Bitmap.h>
+#include <Catalog.h>
 #include <ControlLook.h>
 #include <Directory.h>
 #include <Entry.h>
@@ -46,6 +47,9 @@
 #include "SettingsWindow.h"
 #include "StatusBar.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "MainWindow"
 
 // A single 1px border line spanning the full window width below
 // the toolbar. Being one view, it cannot be interrupted by the
@@ -213,88 +217,88 @@ KuraWindow::_BuildMenu()
 	fMenuBar = new BMenuBar("menuBar");
 
 	// Database menu
-	BMenu* dbMenu = new BMenu("Database");
-	dbMenu->AddItem(new BMenuItem("New database" B_UTF8_ELLIPSIS,
+	BMenu* dbMenu = new BMenu(B_TRANSLATE("Database"));
+	dbMenu->AddItem(new BMenuItem(B_TRANSLATE("New database" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgNewDatabase), 'N', B_SHIFT_KEY));
-	dbMenu->AddItem(new BMenuItem("Open database" B_UTF8_ELLIPSIS,
+	dbMenu->AddItem(new BMenuItem(B_TRANSLATE("Open database" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgOpenDatabase), 'O'));
-	fRecentMenu = new BMenu("Open recent");
+	fRecentMenu = new BMenu(B_TRANSLATE("Open recent"));
 	dbMenu->AddItem(fRecentMenu);
-	fCloseItem = new BMenuItem("Close database",
+	fCloseItem = new BMenuItem(B_TRANSLATE("Close database"),
 		new BMessage(kMsgCloseDatabase), 'W');
 	dbMenu->AddItem(fCloseItem);
 	dbMenu->AddSeparatorItem();
-	fSaveItem = new BMenuItem("Save",
+	fSaveItem = new BMenuItem(B_TRANSLATE("Save"),
 		new BMessage(kMsgSaveDatabase), 'S');
 	dbMenu->AddItem(fSaveItem);
-	fSaveAsItem = new BMenuItem("Save as" B_UTF8_ELLIPSIS,
+	fSaveAsItem = new BMenuItem(B_TRANSLATE("Save as" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgSaveDatabaseAs), 'S', B_SHIFT_KEY);
 	dbMenu->AddItem(fSaveAsItem);
 	dbMenu->AddSeparatorItem();
-	fImportItem = new BMenuItem("Import KeePass CSV" B_UTF8_ELLIPSIS,
+	fImportItem = new BMenuItem(B_TRANSLATE("Import KeePass CSV" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgImportCsv));
 	dbMenu->AddItem(fImportItem);
 	dbMenu->AddSeparatorItem();
-	fLockItem = new BMenuItem("Lock database",
+	fLockItem = new BMenuItem(B_TRANSLATE("Lock database"),
 		new BMessage(kMsgLockDatabase), 'L');
 	dbMenu->AddItem(fLockItem);
-	fChangePwItem = new BMenuItem("Change password" B_UTF8_ELLIPSIS,
+	fChangePwItem = new BMenuItem(B_TRANSLATE("Change password" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgChangePassword));
 	dbMenu->AddItem(fChangePwItem);
 	dbMenu->AddSeparatorItem();
-	dbMenu->AddItem(new BMenuItem("Quit",
+	dbMenu->AddItem(new BMenuItem(B_TRANSLATE("Quit"),
 		new BMessage(B_QUIT_REQUESTED), 'Q'));
 	fMenuBar->AddItem(dbMenu);
 
 	// Groups menu
-	fGroupsMenu = new BMenu("Groups");
-	fGroupsMenu->AddItem(new BMenuItem("New group" B_UTF8_ELLIPSIS,
+	fGroupsMenu = new BMenu(B_TRANSLATE("Groups"));
+	fGroupsMenu->AddItem(new BMenuItem(B_TRANSLATE("New group" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgNewGroup)));
-	fEditGroupItem = new BMenuItem("Edit group" B_UTF8_ELLIPSIS,
+	fEditGroupItem = new BMenuItem(B_TRANSLATE("Edit group" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgEditGroup));
 	fGroupsMenu->AddItem(fEditGroupItem);
-	fDeleteGroupItem = new BMenuItem("Delete group",
+	fDeleteGroupItem = new BMenuItem(B_TRANSLATE("Delete group"),
 		new BMessage(kMsgDeleteGroup));
 	fGroupsMenu->AddItem(fDeleteGroupItem);
 	fMenuBar->AddItem(fGroupsMenu);
 
 	// Entries menu
-	fEntriesMenu = new BMenu("Entries");
-	fEntriesMenu->AddItem(new BMenuItem("New entry" B_UTF8_ELLIPSIS,
+	fEntriesMenu = new BMenu(B_TRANSLATE("Entries"));
+	fEntriesMenu->AddItem(new BMenuItem(B_TRANSLATE("New entry" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgNewEntry), 'N'));
-	fEditEntryItem = new BMenuItem("Edit entry" B_UTF8_ELLIPSIS,
+	fEditEntryItem = new BMenuItem(B_TRANSLATE("Edit entry" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgEditEntry), 'E');
 	fEntriesMenu->AddItem(fEditEntryItem);
-	fDuplicateEntryItem = new BMenuItem("Duplicate entry",
+	fDuplicateEntryItem = new BMenuItem(B_TRANSLATE("Duplicate entry"),
 		new BMessage(kMsgDuplicateEntry), 'D');
 	fEntriesMenu->AddItem(fDuplicateEntryItem);
-	fDeleteEntryItem = new BMenuItem("Delete entry",
+	fDeleteEntryItem = new BMenuItem(B_TRANSLATE("Delete entry"),
 		new BMessage(kMsgDeleteEntry));
 	fEntriesMenu->AddItem(fDeleteEntryItem);
 	fEntriesMenu->AddSeparatorItem();
-	fCopyUsernameItem = new BMenuItem("Copy username",
+	fCopyUsernameItem = new BMenuItem(B_TRANSLATE("Copy username"),
 		new BMessage(kMsgCopyUsername), 'U');
 	fEntriesMenu->AddItem(fCopyUsernameItem);
-	fCopyPasswordItem = new BMenuItem("Copy password",
+	fCopyPasswordItem = new BMenuItem(B_TRANSLATE("Copy password"),
 		new BMessage(kMsgCopyPassword), 'C');
 	fEntriesMenu->AddItem(fCopyPasswordItem);
-	fOpenUrlItem = new BMenuItem("Open URL",
+	fOpenUrlItem = new BMenuItem(B_TRANSLATE("Open URL"),
 		new BMessage(kMsgOpenUrl), 'B');
 	fEntriesMenu->AddItem(fOpenUrlItem);
 	fMenuBar->AddItem(fEntriesMenu);
 
 	// Tools menu
-	BMenu* toolsMenu = new BMenu("Tools");
-	toolsMenu->AddItem(new BMenuItem("Password generator" B_UTF8_ELLIPSIS,
+	BMenu* toolsMenu = new BMenu(B_TRANSLATE("Tools"));
+	toolsMenu->AddItem(new BMenuItem(B_TRANSLATE("Password generator" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgPasswordGenerator), 'G'));
 	toolsMenu->AddSeparatorItem();
-	toolsMenu->AddItem(new BMenuItem("Settings" B_UTF8_ELLIPSIS,
+	toolsMenu->AddItem(new BMenuItem(B_TRANSLATE("Settings" B_UTF8_ELLIPSIS),
 		new BMessage(kMsgShowSettings), ','));
 	fMenuBar->AddItem(toolsMenu);
 
 	// Help menu
-	BMenu* helpMenu = new BMenu("Help");
-	helpMenu->AddItem(new BMenuItem("About Kura" B_UTF8_ELLIPSIS,
+	BMenu* helpMenu = new BMenu(B_TRANSLATE("Help"));
+	helpMenu->AddItem(new BMenuItem(B_TRANSLATE("About Kura" B_UTF8_ELLIPSIS),
 		new BMessage(B_ABOUT_REQUESTED)));
 	fMenuBar->AddItem(helpMenu);
 }
@@ -309,7 +313,7 @@ KuraWindow::_BuildLayout()
 
 	// Status bar at the bottom
 	fStatusBar = new StatusBar();
-	fStatusBar->SetStatusText("Database locked");
+	fStatusBar->SetStatusText(B_TRANSLATE("Database locked"));
 
 	// Set explicit min sizes so the left pane splitter can move freely.
 	// DetailView keeps its natural min so right pane fields don't clip.
@@ -341,17 +345,18 @@ KuraWindow::_BuildLayout()
 		const char* icon;
 		const char* toolTip;
 	} kActions[] = {
-		{ kMsgNewDatabase, "newDB", "New database" },
-		{ kMsgOpenDatabase, "openDB", "Open database" },
-		{ kMsgSaveDatabase, "saveDB", "Save database" },
-		{ kMsgCloseDatabase, "closeDB", "Close database" },
-		{ kMsgLockDatabase, "lockDB", "Lock or unlock database" },
+		{ kMsgNewDatabase, "newDB", B_TRANSLATE("New database") },
+		{ kMsgOpenDatabase, "openDB", B_TRANSLATE("Open database") },
+		{ kMsgSaveDatabase, "saveDB", B_TRANSLATE("Save database") },
+		{ kMsgCloseDatabase, "closeDB", B_TRANSLATE("Close database") },
+		{ kMsgLockDatabase, "lockDB",
+			B_TRANSLATE("Lock or unlock database") },
 		{ 0, NULL, NULL },	// separator
-		{ kMsgNewEntry, "addEntry", "Add entry" },
-		{ kMsgEditEntry, "editEntry", "Edit entry" },
-		{ kMsgDeleteEntry, "removeEntry", "Remove entry" },
+		{ kMsgNewEntry, "addEntry", B_TRANSLATE("Add entry") },
+		{ kMsgEditEntry, "editEntry", B_TRANSLATE("Edit entry") },
+		{ kMsgDeleteEntry, "removeEntry", B_TRANSLATE("Remove entry") },
 		{ 0, NULL, NULL },	// separator
-		{ kMsgShowSettings, "settings", "Settings" },
+		{ kMsgShowSettings, "settings", B_TRANSLATE("Settings") },
 	};
 	for (size_t i = 0; i < sizeof(kActions) / sizeof(kActions[0]);
 			i++) {
@@ -386,7 +391,7 @@ KuraWindow::Minimize(bool minimize)
 			_Lock(false);
 		} else {
 			close_choice choice = _ConfirmClose(
-				"Save changes before locking?");
+				B_TRANSLATE("Save changes before locking?"));
 			if (choice != CLOSE_CANCELLED)
 				_Lock(false, choice != CLOSE_DISCARDED);
 			// Cancelled: minimize without locking
@@ -499,15 +504,15 @@ KuraWindow::MessageReceived(BMessage* message)
 
 			// Already open?
 			if (!fIsLocked && path == fDbPath) {
-				fStatusBar->SetStatusText("This database is already open.");
+				fStatusBar->SetStatusText(B_TRANSLATE("This database is already open."));
 				break;
 			}
 
 			if (!BEntry(path.String()).Exists()) {
-				BString error("The file no longer exists:\n");
+				BString error(B_TRANSLATE("The file no longer exists:\n"));
 				error << path;
-				BAlert* alert = new BAlert("Error", error.String(),
-					"OK", NULL, NULL, B_WIDTH_AS_USUAL,
+				BAlert* alert = new BAlert(B_TRANSLATE("Error"), error.String(),
+					B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_AS_USUAL,
 					B_WARNING_ALERT);
 				alert->Go();
 				fSettings.RemoveRecentFile(path.String());
@@ -517,7 +522,7 @@ KuraWindow::MessageReceived(BMessage* message)
 			}
 
 			close_choice choice = _ConfirmClose(
-				"Save changes before opening another database?");
+				B_TRANSLATE("Save changes before opening another database?"));
 			if (choice == CLOSE_CANCELLED)
 				break;
 
@@ -541,14 +546,14 @@ KuraWindow::MessageReceived(BMessage* message)
 				break;
 
 			close_choice choice = _ConfirmClose(
-				"Save changes before closing the database?");
+				B_TRANSLATE("Save changes before closing the database?"));
 			if (choice == CLOSE_CANCELLED)
 				break;
 
 			_Lock(false, choice != CLOSE_DISCARDED);
 			fStatusBar->SetStatusText(choice == CLOSE_DISCARDED
-				? "Database closed, changes discarded"
-				: "Database closed");
+				? B_TRANSLATE("Database closed, changes discarded")
+				: B_TRANSLATE("Database closed"));
 			break;
 		}
 
@@ -563,7 +568,7 @@ KuraWindow::MessageReceived(BMessage* message)
 				_Lock(true);
 			} else {
 				close_choice choice = _ConfirmClose(
-					"Save changes before locking?");
+					B_TRANSLATE("Save changes before locking?"));
 				if (choice == CLOSE_CANCELLED)
 					break;
 				_Lock(true, choice != CLOSE_DISCARDED);
@@ -595,10 +600,10 @@ KuraWindow::MessageReceived(BMessage* message)
 				&fDatabase);
 
 			if (result != B_OK) {
-				BString error("Import failed:\n");
+				BString error(B_TRANSLATE("Import failed:\n"));
 				error << importer.ErrorString();
-				BAlert* alert = new BAlert("Error", error.String(),
-					"OK", NULL, NULL, B_WIDTH_AS_USUAL,
+				BAlert* alert = new BAlert(B_TRANSLATE("Error"), error.String(),
+					B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_AS_USUAL,
 					B_STOP_ALERT);
 				alert->Go();
 				break;
@@ -607,32 +612,32 @@ KuraWindow::MessageReceived(BMessage* message)
 			_RefreshAll();
 
 			BString summary;
-			summary.SetToFormat("Imported %d entries",
+			summary.SetToFormat(B_TRANSLATE("Imported %d entries"),
 				static_cast<int>(importer.ImportedEntries()));
 			if (importer.CreatedGroups() > 0) {
 				BString g;
-				g.SetToFormat(" and created %d groups",
+				g.SetToFormat(B_TRANSLATE(" and created %d groups"),
 					static_cast<int>(importer.CreatedGroups()));
 				summary << g;
 			}
 			summary << ".";
 			if (importer.SkippedRows() > 0) {
 				BString s;
-				s.SetToFormat("\n%d empty rows were skipped.",
+				s.SetToFormat(B_TRANSLATE("\n%d empty rows were skipped."),
 					static_cast<int>(importer.SkippedRows()));
 				summary << s;
 			}
-			summary << "\n\nThe database has not been saved yet - "
-				"review the imported entries and save.\n\n"
+			summary << B_TRANSLATE("\n\nThe database has not been saved "
+				"yet - review the imported entries and save.\n\n"
 				"Note: the CSV file still contains your passwords "
 				"in plain text. Consider deleting it after "
-				"verifying the import.";
+				"verifying the import.");
 
-			BAlert* alert = new BAlert("Import", summary.String(),
-				"OK", NULL, NULL, B_WIDTH_AS_USUAL, B_INFO_ALERT);
+			BAlert* alert = new BAlert(B_TRANSLATE("Import"), summary.String(),
+				B_TRANSLATE("OK"), NULL, NULL, B_WIDTH_AS_USUAL, B_INFO_ALERT);
 			alert->Go();
 
-			fStatusBar->SetStatusText("Import complete - unsaved changes");
+			fStatusBar->SetStatusText(B_TRANSLATE("Import complete - unsaved changes"));
 			break;
 		}
 
@@ -647,7 +652,7 @@ KuraWindow::MessageReceived(BMessage* message)
 				break;
 
 			close_choice choice = _ConfirmClose(
-				"Save changes before opening another database?");
+				B_TRANSLATE("Save changes before opening another database?"));
 			if (choice == CLOSE_CANCELLED)
 				break;
 
@@ -679,7 +684,7 @@ KuraWindow::MessageReceived(BMessage* message)
 
 			if (message->what == kMsgNewDbRef) {
 				close_choice choice = _ConfirmClose(
-					"Save changes before creating a new database?");
+					B_TRANSLATE("Save changes before creating a new database?"));
 				if (choice == CLOSE_CANCELLED)
 					break;
 
@@ -695,7 +700,7 @@ KuraWindow::MessageReceived(BMessage* message)
 				fDbPath = path.Path();
 				_SaveDatabase();
 				_UpdateTitle();
-				fStatusBar->SetStatusText("Database saved.");
+				fStatusBar->SetStatusText(B_TRANSLATE("Database saved."));
 			}
 			break;
 		}
@@ -724,12 +729,12 @@ KuraWindow::MessageReceived(BMessage* message)
 			fEntryListView->SelectEntry(entryId);
 			_ShowSelectedEntry();
 
-			BString groupName("Root");
+			BString groupName(B_TRANSLATE("Root"));
 			const KuraGroup* group = fDatabase.GroupById(groupId);
 			if (group != NULL)
 				groupName = group->name;
 			BString status;
-			status.SetToFormat("Moved \"%s\" to \"%s\"",
+			status.SetToFormat(B_TRANSLATE("Moved \"%s\" to \"%s\""),
 				moved.title.String(), groupName.String());
 			fStatusBar->SetStatusText(status.String());
 			break;
@@ -762,13 +767,13 @@ KuraWindow::MessageReceived(BMessage* message)
 			_RefreshAll();
 			fGroupListView->SelectGroup(groupId);
 
-			BString parentName("Root");
+			BString parentName(B_TRANSLATE("Root"));
 			const KuraGroup* parent
 				= fDatabase.GroupById(newParentId);
 			if (parent != NULL)
 				parentName = parent->name;
 			BString status;
-			status.SetToFormat("Moved \"%s\" into \"%s\"",
+			status.SetToFormat(B_TRANSLATE("Moved \"%s\" into \"%s\""),
 				groupName.String(), parentName.String());
 			fStatusBar->SetStatusText(status.String());
 			break;
@@ -1009,7 +1014,7 @@ KuraWindow::QuitRequested()
 
 	// Unsaved changes: same prompt as Close/Open (discarding just
 	// means quitting without saving; memory is scrubbed on exit)
-	if (_ConfirmClose("Save changes before quitting?")
+	if (_ConfirmClose(B_TRANSLATE("Save changes before quitting?"))
 			== CLOSE_CANCELLED)
 		return false;
 
@@ -1073,8 +1078,8 @@ KuraWindow::_ConfirmClose(const char* question)
 	if (fIsLocked || !fDatabase.IsModified())
 		return CLOSE_SAVED;
 
-	BAlert* alert = new BAlert("Save?", question,
-		"Don't save", "Cancel", "Save",
+	BAlert* alert = new BAlert(B_TRANSLATE("Save?"), question,
+		B_TRANSLATE("Don't save"), B_TRANSLATE("Cancel"), B_TRANSLATE("Save"),
 		B_WIDTH_AS_USUAL, B_OFFSET_SPACING, B_WARNING_ALERT);
 	int32 result = alert->Go();
 	if (result == 1)
@@ -1114,7 +1119,7 @@ KuraWindow::_NewDatabase()
 		fNewPanel = new BFilePanel(B_SAVE_PANEL, &target, NULL, 0,
 			false, &msg);
 		if (fNewPanel->Window()->Lock()) {
-			fNewPanel->Window()->SetTitle("Kura: New database");
+			fNewPanel->Window()->SetTitle(B_TRANSLATE("Kura: New database"));
 			fNewPanel->Window()->Unlock();
 		}
 	}
@@ -1132,7 +1137,7 @@ KuraWindow::_OpenDatabase()
 		fOpenPanel = new BFilePanel(B_OPEN_PANEL, &target, NULL, 0,
 			false, &msg);
 		if (fOpenPanel->Window()->Lock()) {
-			fOpenPanel->Window()->SetTitle("Kura: Open database");
+			fOpenPanel->Window()->SetTitle(B_TRANSLATE("Kura: Open database"));
 			fOpenPanel->Window()->Unlock();
 		}
 	}
@@ -1152,7 +1157,7 @@ KuraWindow::_SaveDatabaseAs()
 		fSaveAsPanel = new BFilePanel(B_SAVE_PANEL, &target, NULL, 0,
 			false, &msg);
 		if (fSaveAsPanel->Window()->Lock()) {
-			fSaveAsPanel->Window()->SetTitle("Kura: Save database as");
+			fSaveAsPanel->Window()->SetTitle(B_TRANSLATE("Kura: Save database as"));
 			fSaveAsPanel->Window()->Unlock();
 		}
 	}
@@ -1177,7 +1182,7 @@ KuraWindow::_ImportCsv()
 			false, &msg);
 		if (fImportPanel->Window()->Lock()) {
 			fImportPanel->Window()->SetTitle(
-				"Kura: Import KeePass CSV");
+				B_TRANSLATE("Kura: Import KeePass CSV"));
 			fImportPanel->Window()->Unlock();
 		}
 	}
@@ -1201,9 +1206,9 @@ KuraWindow::_SaveDatabase()
 	scrub_string(json);
 
 	if (result != B_OK) {
-		BString error("Failed to save database:\n");
+		BString error(B_TRANSLATE("Failed to save database:\n"));
 		error << fCrypto.ErrorString();
-		BAlert* alert = new BAlert("Error", error.String(), "OK",
+		BAlert* alert = new BAlert(B_TRANSLATE("Error"), error.String(), B_TRANSLATE("OK"),
 			NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT);
 		alert->Go();
 		return;
@@ -1278,8 +1283,8 @@ KuraWindow::_UnlockDatabase(const BString& password, int32 mode,
 
 		// Verify the current master password before changing it
 		if (current != fPassword) {
-			BAlert* alert = new BAlert("Error",
-				"The current password is incorrect.", "OK",
+			BAlert* alert = new BAlert(B_TRANSLATE("Error"),
+				B_TRANSLATE("The current password is incorrect."), B_TRANSLATE("OK"),
 				NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT);
 			alert->Go();
 			_ShowUnlockDialog(UNLOCK_CHANGE);
@@ -1289,7 +1294,7 @@ KuraWindow::_UnlockDatabase(const BString& password, int32 mode,
 		scrub_string(fPassword);
 		fPassword = password;
 		_SaveDatabase();
-		fStatusBar->SetStatusText("Master password changed.");
+		fStatusBar->SetStatusText(B_TRANSLATE("Master password changed."));
 		return;
 	}
 
@@ -1315,12 +1320,12 @@ KuraWindow::_UnlockDatabase(const BString& password, int32 mode,
 
 			BString error;
 			if (result == B_PERMISSION_DENIED)
-				error = "Wrong password. Please try again.";
+				error = B_TRANSLATE("Wrong password. Please try again.");
 			else
-				error << "Failed to open database:\n"
+				error << B_TRANSLATE("Failed to open database:\n")
 					<< fCrypto.ErrorString();
 
-			BAlert* alert = new BAlert("Error", error.String(), "OK",
+			BAlert* alert = new BAlert(B_TRANSLATE("Error"), error.String(), B_TRANSLATE("OK"),
 				NULL, NULL, B_WIDTH_AS_USUAL, B_STOP_ALERT);
 			alert->Go();
 
@@ -1339,7 +1344,7 @@ KuraWindow::_UnlockDatabase(const BString& password, int32 mode,
 
 	// Update UI - the sidebar root item shows the database name
 	BPath dbPath(fDbPath.String());
-	BString rootLabel(dbPath.Leaf() != NULL ? dbPath.Leaf() : "Root");
+	BString rootLabel(dbPath.Leaf() != NULL ? dbPath.Leaf() : B_TRANSLATE("Root"));
 	int32 dot = rootLabel.FindLast('.');
 	if (dot > 0)
 		rootLabel.Truncate(dot);
@@ -1413,11 +1418,13 @@ KuraWindow::_DeleteEntry()
 	if (entry == NULL)
 		return;
 
-	BString text("Delete entry \"");
-	text << entry->title << "\"?";
+	BString text;
+	text.SetToFormat(B_TRANSLATE("Delete entry \"%s\"?"),
+		entry->title.String());
 
-	BAlert* alert = new BAlert("Delete", text.String(),
-		"Cancel", "Delete", NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT);
+	BAlert* alert = new BAlert(B_TRANSLATE("Delete"), text.String(),
+		B_TRANSLATE("Cancel"), B_TRANSLATE("Delete"), NULL,
+		B_WIDTH_AS_USUAL, B_WARNING_ALERT);
 	if (alert->Go() != 1)
 		return;
 
@@ -1466,10 +1473,10 @@ KuraWindow::_CopyUsername()
 		return;
 
 	KuraClipboard::CopyWithTimedClear(entry->username.String());
-	BString status("Username copied");
+	BString status(B_TRANSLATE("Username copied"));
 	if (fSettings.ClipboardClearEnabled()) {
 		BString suffix;
-		suffix.SetToFormat(" (clears in %ds)",
+		suffix.SetToFormat(B_TRANSLATE(" (clears in %ds)"),
 			static_cast<int>(fSettings.ClipboardClearSeconds()));
 		status << suffix;
 	}
@@ -1492,10 +1499,10 @@ KuraWindow::_CopyPassword()
 		return;
 
 	KuraClipboard::CopyWithTimedClear(entry->password.String());
-	BString status("Password copied");
+	BString status(B_TRANSLATE("Password copied"));
 	if (fSettings.ClipboardClearEnabled()) {
 		BString suffix;
-		suffix.SetToFormat(" (clears in %ds)",
+		suffix.SetToFormat(B_TRANSLATE(" (clears in %ds)"),
 			static_cast<int>(fSettings.ClipboardClearSeconds()));
 		status << suffix;
 	}
@@ -1558,14 +1565,20 @@ KuraWindow::_DeleteGroup()
 		return;
 
 	int32 entryCount = fDatabase.CountEntriesInGroup(groupId, true);
-	BString text("Delete group \"");
-	text << group->name << "\"?";
-	if (entryCount > 0)
-		text << "\n\n" << entryCount
-			<< " entries will be moved to Root.";
+	BString text;
+	text.SetToFormat(B_TRANSLATE("Delete group \"%s\"?"),
+		group->name.String());
+	if (entryCount > 0) {
+		BString more;
+		more.SetToFormat(
+			B_TRANSLATE("\n\n%d entries will be moved to Root."),
+			static_cast<int>(entryCount));
+		text << more;
+	}
 
-	BAlert* alert = new BAlert("Delete", text.String(),
-		"Cancel", "Delete", NULL, B_WIDTH_AS_USUAL, B_WARNING_ALERT);
+	BAlert* alert = new BAlert(B_TRANSLATE("Delete"), text.String(),
+		B_TRANSLATE("Cancel"), B_TRANSLATE("Delete"), NULL,
+		B_WIDTH_AS_USUAL, B_WARNING_ALERT);
 	if (alert->Go() != 1)
 		return;
 
@@ -1629,7 +1642,8 @@ KuraWindow::_UpdateMenus()
 	fToolBar->SetActionEnabled(kMsgNewEntry, !fIsLocked);
 	fChangePwItem->SetEnabled(!fIsLocked);
 	fLockItem->SetLabel(fIsLocked
-		? "Unlock database" B_UTF8_ELLIPSIS : "Lock database");
+		? B_TRANSLATE("Unlock database" B_UTF8_ELLIPSIS)
+		: B_TRANSLATE("Lock database"));
 	fGroupsMenu->SetEnabled(!fIsLocked);
 	fEntriesMenu->SetEnabled(!fIsLocked);
 	fEntryListView->SetSearchEnabled(!fIsLocked);
@@ -1676,7 +1690,7 @@ KuraWindow::_UpdateRecentMenu()
 
 	int32 count = fSettings.CountRecentFiles();
 	if (count == 0) {
-		BMenuItem* empty = new BMenuItem("(no recent files)",
+		BMenuItem* empty = new BMenuItem(B_TRANSLATE("(no recent files)"),
 			NULL);
 		empty->SetEnabled(false);
 		fRecentMenu->AddItem(empty);
@@ -1694,7 +1708,7 @@ KuraWindow::_UpdateRecentMenu()
 	}
 
 	fRecentMenu->AddSeparatorItem();
-	fRecentMenu->AddItem(new BMenuItem("Clear recent files",
+	fRecentMenu->AddItem(new BMenuItem(B_TRANSLATE("Clear recent files"),
 		new BMessage(kMsgClearRecent)));
 
 	// Items added to an already-attached menu need an explicit target
@@ -1707,18 +1721,18 @@ KuraWindow::_UpdateStatusBar()
 {
 	if (fIsLocked) {
 		fStatusBar->SetStatusText(fDbPath.Length() > 0
-			? "Database locked" : "No database open");
+			? B_TRANSLATE("Database locked") : B_TRANSLATE("No database open"));
 		fStatusBar->SetCountText("");
 		return;
 	}
 
 	bigtime_t timeout = _AutoLockTimeout();
 	if (timeout <= 0) {
-		fStatusBar->SetStatusText("Unlocked");
+		fStatusBar->SetStatusText(B_TRANSLATE("Unlocked"));
 	} else if (fDatabase.IsModified()
 		&& !fSettings.AutoSaveOnLock()) {
-		fStatusBar->SetStatusText("Unlocked · auto-lock "
-			"paused (unsaved changes)");
+		fStatusBar->SetStatusText(B_TRANSLATE("Unlocked · auto-lock "
+			"paused (unsaved changes)"));
 	} else {
 		bigtime_t remaining = timeout
 			- (system_time() - fLastActivity);
@@ -1730,13 +1744,13 @@ KuraWindow::_UpdateStatusBar()
 		seconds %= 60;
 
 		BString status;
-		status.SetToFormat("Unlocked · Auto-lock in %d:%02d",
+		status.SetToFormat(B_TRANSLATE("Unlocked · Auto-lock in %d:%02d"),
 			minutes, seconds);
 		fStatusBar->SetStatusText(status.String());
 	}
 
 	BString count;
-	count.SetToFormat("%d entries", static_cast<int>(fDatabase.CountEntries()));
+	count.SetToFormat(B_TRANSLATE("%d entries"), static_cast<int>(fDatabase.CountEntries()));
 	fStatusBar->SetCountText(count.String());
 }
 

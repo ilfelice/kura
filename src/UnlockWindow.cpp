@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include <Button.h>
+#include <Catalog.h>
 #include <GridLayout.h>
 #include <LayoutBuilder.h>
 #include <StringView.h>
@@ -20,13 +21,16 @@
 #include "KuraUtils.h"
 
 
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "UnlockWindow"
+
 UnlockWindow::UnlockWindow(BRect frame, unlock_mode mode,
 	const char* dbPath, BWindow* target)
 	:
 	BWindow(frame,
-		mode == UNLOCK_NEW ? "New Database" :
-		mode == UNLOCK_CHANGE ? "Change password" :
-		"Unlock Database",
+		mode == UNLOCK_NEW ? B_TRANSLATE("New Database") :
+		mode == UNLOCK_CHANGE ? B_TRANSLATE("Change password") :
+		B_TRANSLATE("Unlock Database"),
 		B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL,
 		B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS
 			| B_CLOSE_ON_ESCAPE),
@@ -40,20 +44,22 @@ UnlockWindow::UnlockWindow(BRect frame, unlock_mode mode,
 	// Current password field - only for change mode
 	if (mode == UNLOCK_CHANGE) {
 		fCurrentField = new BTextControl("current",
-			"Current password:", "", NULL);
+			B_TRANSLATE("Current password:"), "", NULL);
 		fCurrentField->TextView()->HideTyping(true);
 	}
 
 	// (New) master password field with hidden text
 	fPasswordField = new BTextControl("password",
-		mode == UNLOCK_CHANGE ? "New password:" : "Master password:",
+		mode == UNLOCK_CHANGE
+			? B_TRANSLATE("New password:") : B_TRANSLATE("Master password:"),
 		"", NULL);
 	fPasswordField->TextView()->HideTyping(true);
 
 	// Confirm field - only for new/change modes
 	if (mode == UNLOCK_NEW || mode == UNLOCK_CHANGE) {
 		fConfirmField = new BTextControl("confirm",
-			mode == UNLOCK_CHANGE ? "Confirm:" : "Confirm password:",
+			mode == UNLOCK_CHANGE
+				? B_TRANSLATE("Confirm:") : B_TRANSLATE("Confirm password:"),
 			"", NULL);
 		fConfirmField->TextView()->HideTyping(true);
 	}
@@ -74,11 +80,11 @@ UnlockWindow::UnlockWindow(BRect frame, unlock_mode mode,
 	pathView->SetFontSize(10.0);
 
 	// Buttons
-	fCancelButton = new BButton("cancel", "Cancel",
+	fCancelButton = new BButton("cancel", B_TRANSLATE("Cancel"),
 		new BMessage(kMsgUnlockCancel));
 	fUnlockButton = new BButton("unlock",
-		mode == UNLOCK_NEW ? "Create" :
-		mode == UNLOCK_CHANGE ? "Change" : "Unlock",
+		mode == UNLOCK_NEW ? B_TRANSLATE("Create") :
+		mode == UNLOCK_CHANGE ? B_TRANSLATE("Change") : B_TRANSLATE("Unlock"),
 		new BMessage(kMsgUnlock));
 	fUnlockButton->MakeDefault(true);
 
@@ -188,8 +194,8 @@ UnlockWindow::_Submit()
 
 	if (password.Length() == 0) {
 		fStatusView->SetText(fMode == UNLOCK_CHANGE
-			? "Please enter a new password."
-			: "Please enter a password.");
+			? B_TRANSLATE("Please enter a new password.")
+			: B_TRANSLATE("Please enter a password."));
 		fPasswordField->MakeFocus(true);
 		return;
 	}
@@ -198,7 +204,8 @@ UnlockWindow::_Submit()
 	if (fMode == UNLOCK_CHANGE) {
 		current = fCurrentField->Text();
 		if (current.Length() == 0) {
-			fStatusView->SetText("Please enter your current password.");
+			fStatusView->SetText(
+			B_TRANSLATE("Please enter your current password."));
 			fCurrentField->MakeFocus(true);
 			return;
 		}
@@ -207,7 +214,7 @@ UnlockWindow::_Submit()
 	if (fMode == UNLOCK_NEW || fMode == UNLOCK_CHANGE) {
 		BString confirm(fConfirmField->Text());
 		if (password != confirm) {
-			fStatusView->SetText("Passwords do not match.");
+			fStatusView->SetText(B_TRANSLATE("Passwords do not match."));
 			fConfirmField->SetText("");
 			fConfirmField->MakeFocus(true);
 			scrub_string(confirm);
@@ -217,7 +224,7 @@ UnlockWindow::_Submit()
 
 		if (password.Length() < 4) {
 			fStatusView->SetText(
-				"Password must be at least 4 characters.");
+				B_TRANSLATE("Password must be at least 4 characters."));
 			return;
 		}
 	}

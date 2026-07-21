@@ -9,6 +9,7 @@
 #include "SettingsWindow.h"
 
 #include <Button.h>
+#include <Catalog.h>
 #include <CheckBox.h>
 #include <LayoutBuilder.h>
 #include <SpaceLayoutItem.h>
@@ -18,6 +19,9 @@
 
 #include "KuraDefs.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 // Internal messages
 enum {
@@ -32,7 +36,7 @@ SettingsWindow::SettingsWindow(BRect frame, BMessenger target,
 	bool clipClearEnabled, int32 clipClearSeconds, bool lockOnMinimize,
 	bool autoSaveOnLock)
 	:
-	BWindow(frame, "Settings", B_TITLED_WINDOW_LOOK,
+	BWindow(frame, B_TRANSLATE("Settings"), B_TITLED_WINDOW_LOOK,
 		B_MODAL_APP_WINDOW_FEEL,
 		B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS
 			| B_CLOSE_ON_ESCAPE),
@@ -46,35 +50,35 @@ SettingsWindow::SettingsWindow(BRect frame, BMessenger target,
 	fOriginalAutoSaveOnLock(autoSaveOnLock)
 {
 	fClipClearBox = new BCheckBox("clipClear",
-		"Clear clipboard after", new BMessage(kMsgControlChanged));
+		B_TRANSLATE("Clear clipboard after"), new BMessage(kMsgControlChanged));
 	fClipClearSpinner = new BSpinner("clipClearSeconds", "",
 		new BMessage(kMsgControlChanged));
 	fClipClearSpinner->SetRange(1, 3600);
-	BStringView* clipUnit = new BStringView("clipUnit", "seconds");
+	BStringView* clipUnit = new BStringView("clipUnit", B_TRANSLATE("seconds"));
 
 	fAutoLockBox = new BCheckBox("autoLock",
-		"Lock database after", new BMessage(kMsgControlChanged));
+		B_TRANSLATE("Lock database after"), new BMessage(kMsgControlChanged));
 	fAutoLockSpinner = new BSpinner("autoLockMinutes", "",
 		new BMessage(kMsgControlChanged));
 	fAutoLockSpinner->SetRange(1, 1440);
 	BStringView* autoLockUnit = new BStringView("autoLockUnit",
-		"minutes of inactivity");
+		B_TRANSLATE("minutes of inactivity"));
 
 	fLockMinimizeBox = new BCheckBox("lockMinimize",
-		"Lock database when minimizing the window",
+		B_TRANSLATE("Lock database when minimizing the window"),
 		new BMessage(kMsgControlChanged));
 
 	fAutoSaveBox = new BCheckBox("autoSaveLock",
-		"Save automatically when locking",
+		B_TRANSLATE("Save automatically when locking"),
 		new BMessage(kMsgControlChanged));
 
 	fBackupBox = new BCheckBox("backup",
-		"Keep a backup copy (.bak) of the database when saving",
+		B_TRANSLATE("Keep a backup copy (.bak) of the database when saving"),
 		new BMessage(kMsgControlChanged));
 
-	fDefaultsButton = new BButton("defaults", "Defaults",
+	fDefaultsButton = new BButton("defaults", B_TRANSLATE("Defaults"),
 		new BMessage(kMsgDefaults));
-	fRevertButton = new BButton("revert", "Revert",
+	fRevertButton = new BButton("revert", B_TRANSLATE("Revert"),
 		new BMessage(kMsgRevert));
 
 	// Keep the spinners compact

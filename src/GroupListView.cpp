@@ -14,6 +14,7 @@
 
 #include <Application.h>
 #include <Bitmap.h>
+#include <Catalog.h>
 #include <ControlLook.h>
 #include <IconUtils.h>
 #include <LayoutBuilder.h>
@@ -23,6 +24,9 @@
 
 #include "KuraDefs.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "GroupListView"
 
 // --- Icon data loading (cached raw HVIF buffers) ---
 
@@ -709,7 +713,7 @@ GroupListView::GroupListView()
 	fListView(NULL),
 	fScrollView(NULL),
 	fDatabase(NULL),
-	fRootLabel("Root")
+	fRootLabel(B_TRANSLATE("Root"))
 {
 	fListView = new GroupOutlineView("groupList");
 	fListView->SetSelectionMessage(new BMessage(kMsgGroupSelected));
@@ -747,7 +751,7 @@ GroupListView::SetDatabase(KuraDatabase* db)
 	fDatabase = db;
 	static_cast<GroupOutlineView*>(fListView)->SetDatabase(db);
 	if (db == NULL)
-		fRootLabel = "Root";
+		fRootLabel = B_TRANSLATE("Root");
 	Refresh();
 }
 
@@ -758,7 +762,7 @@ GroupListView::SetRootLabel(const char* label)
 	if (label != NULL && label[0] != '\0')
 		fRootLabel = label;
 	else
-		fRootLabel = "Root";
+		fRootLabel = B_TRANSLATE("Root");
 }
 
 

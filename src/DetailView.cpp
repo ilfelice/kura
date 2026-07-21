@@ -12,6 +12,7 @@
 #include <string.h>
 #include <time.h>
 
+#include <Catalog.h>
 #include <LayoutBuilder.h>
 #include <ScrollView.h>
 #include <StringView.h>
@@ -22,6 +23,9 @@
 #include "KuraDefs.h"
 #include "KuraUtils.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "DetailView"
 
 // Resource IDs (must match Kura.rdef)
 enum {
@@ -60,7 +64,7 @@ DetailView::DetailView()
 	fGroupPathView->SetFont(&smallFont);
 
 	// Username field with copy button inside
-	fUsernameLabel = new BStringView("userLabel", "Username:");
+	fUsernameLabel = new BStringView("userLabel", B_TRANSLATE("Username:"));
 	fUsernameLabel->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.6);
 	fUsernameLabel->SetExplicitAlignment(
 		BAlignment(B_ALIGN_LEFT, B_ALIGN_VERTICAL_CENTER));
@@ -68,7 +72,7 @@ DetailView::DetailView()
 	fUsernameField->AddButton(kIconCopy, kMsgCopyUser);
 
 	// Password field with show/hide and copy buttons inside
-	fPasswordLabel = new BStringView("passLabel", "Password:");
+	fPasswordLabel = new BStringView("passLabel", B_TRANSLATE("Password:"));
 	fPasswordLabel->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.6);
 	fPasswordLabel->SetExplicitAlignment(
 		BAlignment(B_ALIGN_LEFT, B_ALIGN_VERTICAL_CENTER));
@@ -77,7 +81,7 @@ DetailView::DetailView()
 	fPasswordField->AddButton(kIconCopy, kMsgCopyPass);
 
 	// URL field - clickable, no buttons
-	fUrlLabel = new BStringView("urlLabel", "URL:");
+	fUrlLabel = new BStringView("urlLabel", B_TRANSLATE("URL:"));
 	fUrlLabel->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.6);
 	fUrlLabel->SetExplicitAlignment(
 		BAlignment(B_ALIGN_LEFT, B_ALIGN_VERTICAL_CENTER));
@@ -93,7 +97,7 @@ DetailView::DetailView()
 	fModifiedView->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.5);
 
 	// Notes
-	fNotesLabel = new BStringView("notesLabel", "Notes:");
+	fNotesLabel = new BStringView("notesLabel", B_TRANSLATE("Notes:"));
 	fNotesLabel->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.6);
 	fNotesLabel->SetExplicitAlignment(
 		BAlignment(B_ALIGN_LEFT, B_ALIGN_TOP));
@@ -215,7 +219,7 @@ DetailView::ShowEntry(const KuraEntry* entry)
 
 	if (entry == NULL) {
 		fCurrentEntryId = kNoId;
-		fTitleView->SetText("No entry selected");
+		fTitleView->SetText(B_TRANSLATE("No entry selected"));
 		fGroupPathView->SetText("");
 		fUsernameField->SetText("—");
 		fPasswordField->SetText("—");
@@ -245,7 +249,7 @@ DetailView::ShowEntry(const KuraEntry* entry)
 	fTitleView->SetText(entry->title.String());
 	BString groupPath = _GroupPath(entry->groupId);
 	if (groupPath.Length() == 0)
-		groupPath = "Root";
+		groupPath = B_TRANSLATE("Root");
 	fGroupPathView->SetText(groupPath.String());
 
 	// Use default text color for labels when entry is selected
@@ -278,13 +282,15 @@ DetailView::ShowEntry(const KuraEntry* entry)
 
 	tm = localtime(&entry->createdAt);
 	if (tm != NULL) {
-		strftime(timeStr, sizeof(timeStr), "Created: %Y-%m-%d %H:%M", tm);
+		strftime(timeStr, sizeof(timeStr),
+			B_TRANSLATE("Created: %Y-%m-%d %H:%M"), tm);
 		fCreatedView->SetText(timeStr);
 	}
 
 	tm = localtime(&entry->modifiedAt);
 	if (tm != NULL) {
-		strftime(timeStr, sizeof(timeStr), "Modified: %Y-%m-%d %H:%M", tm);
+		strftime(timeStr, sizeof(timeStr),
+			B_TRANSLATE("Modified: %Y-%m-%d %H:%M"), tm);
 		fModifiedView->SetText(timeStr);
 	}
 

@@ -1,0 +1,180 @@
+1	English	application/x-vnd.Kura	2198100157
+Use	PasswordGeneratorWindow		Use
+Add entry	MainWindow		Add entry
+Password copied	MainWindow		Password copied
+New entry…	MainWindow		New entry…
+Unlock Database	UnlockWindow		Unlock Database
+Confirm password:	UnlockWindow		Confirm password:
+Root	EntryEditWindow		Root
+Version 	AboutWindow		Version 
+Lock database	MainWindow		Lock database
+Open database…	MainWindow		Open database…
+Master password:	UnlockWindow		Master password:
+%d entries	MainWindow		%d entries
+About Kura	AboutWindow		About Kura
+No data rows found in the file	CsvImport		No data rows found in the file
+Out of memory	CsvImport		Out of memory
+Digits (0-9)	PasswordGeneratorWindow		Digits (0-9)
+Moved \"%s\" into \"%s\"	MainWindow		Moved \"%s\" into \"%s\"
+Failed to read file	CsvImport		Failed to read file
+Please enter your current password.	UnlockWindow		Please enter your current password.
+Search:	EntryListView		Search:
+Save changes before locking?	MainWindow		Save changes before locking?
+Kura: Open database	MainWindow		Kura: Open database
+OpenSSL for the cryptographic primitives.\nKeePass and KeePassXC as sources of inspiration and for CSV import compatibility.\nThe Haiku Project for the operating system and its API.	AboutWindow		OpenSSL for the cryptographic primitives.\nKeePass and KeePassXC as sources of inspiration and for CSV import compatibility.\nThe Haiku Project for the operating system and its API.
+Database locked	MainWindow		Database locked
+Delete group	MainWindow		Delete group
+Keep a backup copy (.bak) of the database when saving	SettingsWindow		Keep a backup copy (.bak) of the database when saving
+Unlock database…	MainWindow		Unlock database…
+Unlocked	MainWindow		Unlocked
+Copy password	MainWindow		Copy password
+Lock database when minimizing the window	SettingsWindow		Lock database when minimizing the window
+Save database	MainWindow		Save database
+Root	DetailView		Root
+Password generator…	MainWindow		Password generator…
+Settings…	MainWindow		Settings…
+Save	MainWindow		Save
+Save changes before quitting?	MainWindow		Save changes before quitting?
+Edit entry…	MainWindow		Edit entry…
+Kura: Import KeePass CSV	MainWindow		Kura: Import KeePass CSV
+Error	MainWindow		Error
+ (clears in %ds)	MainWindow		 (clears in %ds)
+Lowercase (a-z)	PasswordGeneratorWindow		Lowercase (a-z)
+Username:	DetailView		Username:
+Close database	MainWindow		Close database
+Don't save	MainWindow		Don't save
+Failed to open file	CsvImport		Failed to open file
+Cancel	UnlockWindow		Cancel
+Duplicate entry	MainWindow		Duplicate entry
+Kura (“蔵”, a traditional Japanese storehouse) is a password manager for the Haiku operating system. It keeps your usernames, passwords and related secrets in a single encrypted database that only you can open.	AboutWindow		Kura (“蔵”, a traditional Japanese storehouse) is a password manager for the Haiku operating system. It keeps your usernames, passwords and related secrets in a single encrypted database that only you can open.
+Unlocked · Auto-lock in %d:%02d	MainWindow		Unlocked · Auto-lock in %d:%02d
+New Database	UnlockWindow		New Database
+Unlock	UnlockWindow		Unlock
+Length: %d	PasswordGeneratorWindow		Length: %d
+Group:	EntryEditWindow		Group:
+Edit Entry	EntryEditWindow		Edit Entry
+New database…	MainWindow		New database…
+Master password changed.	MainWindow		Master password changed.
+Save	EntryEditWindow		Save
+About Kura…	MainWindow		About Kura…
+Copy username	MainWindow		Copy username
+Confirm:	UnlockWindow		Confirm:
+Uppercase (A-Z)	PasswordGeneratorWindow		Uppercase (A-Z)
+Revert	SettingsWindow		Revert
+Failed to save database:\n	MainWindow		Failed to save database:\n
+Wrong password. Please try again.	MainWindow		Wrong password. Please try again.
+Select at least one character class.	PasswordGeneratorWindow		Select at least one character class.
+Copied to clipboard.	PasswordGeneratorWindow		Copied to clipboard.
+Import KeePass CSV…	MainWindow		Import KeePass CSV…
+The file no longer exists:\n	MainWindow		The file no longer exists:\n
+The current password is incorrect.	MainWindow		The current password is incorrect.
+Open database	MainWindow		Open database
+Clear clipboard after	SettingsWindow		Clear clipboard after
+Save	GroupEditWindow		Save
+Save changes before creating a new database?	MainWindow		Save changes before creating a new database?
+OK	AboutWindow		OK
+Import failed:\n	MainWindow		Import failed:\n
+New Entry	EntryEditWindow		New Entry
+This database is already open.	MainWindow		This database is already open.
+Remove entry	MainWindow		Remove entry
+Save automatically when locking	SettingsWindow		Save automatically when locking
+Help	MainWindow		Help
+Delete group \"%s\"?	MainWindow		Delete group \"%s\"?
+Symbols (!@#$	PasswordGeneratorWindow		Symbols (!@#$
+Imported %d entries	MainWindow		Imported %d entries
+Unlocked · auto-lock paused (unsaved changes)	MainWindow		Unlocked · auto-lock paused (unsaved changes)
+minutes of inactivity	SettingsWindow		minutes of inactivity
+Your database is encrypted with AES-256-GCM. The key is derived from your master password with PBKDF2-HMAC-SHA256, and the plaintext is held in memory only while the database is unlocked.	AboutWindow		Your database is encrypted with AES-256-GCM. The key is derived from your master password with PBKDF2-HMAC-SHA256, and the plaintext is held in memory only while the database is unlocked.
+Group	EntryEditWindow		Group
+Edit entry	MainWindow		Edit entry
+File is too large to be a CSV export	CsvImport		File is too large to be a CSV export
+Password:	DetailView		Password:
+Root	MainWindow		Root
+Kura: Save database as	MainWindow		Kura: Save database as
+Untitled	CsvImport		Untitled
+Modified: %Y-%m-%d %H:%M	DetailView		Modified: %Y-%m-%d %H:%M
+Username copied	MainWindow		Username copied
+Modified	EntryListView		Modified
+Random generator failure.	PasswordGeneratorWindow		Random generator failure.
+Title	EntryListView		Title
+OK	MainWindow		OK
+Kura: New database	MainWindow		Kura: New database
+No entry selected	DetailView		No entry selected
+Create	UnlockWindow		Create
+Cancel	EntryEditWindow		Cancel
+Entries	MainWindow		Entries
+Save?	MainWindow		Save?
+Save changes before closing the database?	MainWindow		Save changes before closing the database?
+Quit	MainWindow		Quit
+New database	MainWindow		New database
+Import	MainWindow		Import
+Copy	PasswordGeneratorWindow		Copy
+Lock or unlock database	MainWindow		Lock or unlock database
+Please enter a new password.	UnlockWindow		Please enter a new password.
+Settings	SettingsWindow		Settings
+Exclude look-alikes (l1IO0o|)	PasswordGeneratorWindow		Exclude look-alikes (l1IO0o|)
+Created: %Y-%m-%d %H:%M	DetailView		Created: %Y-%m-%d %H:%M
+Cancel	GroupEditWindow		Cancel
+Import complete - unsaved changes	MainWindow		Import complete - unsaved changes
+Database closed	MainWindow		Database closed
+New group…	MainWindow		New group…
+Password:	EntryEditWindow		Password:
+Open recent	MainWindow		Open recent
+Cancel	MainWindow		Cancel
+(no recent files)	MainWindow		(no recent files)
+Title:	EntryEditWindow		Title:
+Lock database after	SettingsWindow		Lock database after
+Tools	MainWindow		Tools
+Clear recent files	MainWindow		Clear recent files
+Notes:	DetailView		Notes:
+No database open	MainWindow		No database open
+Entropy: ~%.0f bits (%s)	PasswordGeneratorWindow		Entropy: ~%.0f bits (%s)
+Save as…	MainWindow		Save as…
+The file contains a header but no entries	CsvImport		The file contains a header but no entries
+\n\nThe database has not been saved yet - review the imported entries and save.\n\nNote: the CSV file still contains your passwords in plain text. Consider deleting it after verifying the import.	MainWindow		\n\nThe database has not been saved yet - review the imported entries and save.\n\nNote: the CSV file still contains your passwords in plain text. Consider deleting it after verifying the import.
+Credits:	AboutWindow		Credits:
+Password must be at least 4 characters.	UnlockWindow		Password must be at least 4 characters.
+Created with the assistance of AI tools.\nDistributed under the terms of the MIT License.\nCopyright 2026 Il Felice.	AboutWindow		Created with the assistance of AI tools.\nDistributed under the terms of the MIT License.\nCopyright 2026 Il Felice.
+Parent:	GroupEditWindow		Parent:
+Invalid arguments	CsvImport		Invalid arguments
+Delete entry \"%s\"?	MainWindow		Delete entry \"%s\"?
+Moved \"%s\" to \"%s\"	MainWindow		Moved \"%s\" to \"%s\"
+Root	GroupListView		Root
+Delete	MainWindow		Delete
+Name:	GroupEditWindow		Name:
+Username	EntryListView		Username
+Edit group…	MainWindow		Edit group…
+Current password:	UnlockWindow		Current password:
+Parent	GroupEditWindow		Parent
+\n\n%d entries will be moved to Root.	MainWindow		\n\n%d entries will be moved to Root.
+New password:	UnlockWindow		New password:
+Database closed, changes discarded	MainWindow		Database closed, changes discarded
+Generate	PasswordGeneratorWindow		Generate
+ and created %d groups	MainWindow		 and created %d groups
+Notes:	EntryEditWindow		Notes:
+URL:	DetailView		URL:
+File is empty	CsvImport		File is empty
+Delete entry	MainWindow		Delete entry
+Defaults	SettingsWindow		Defaults
+Edit Group	GroupEditWindow		Edit Group
+Database	MainWindow		Database
+Password generator	PasswordGeneratorWindow		Password generator
+URL:	EntryEditWindow		URL:
+Open URL	MainWindow		Open URL
+Change password…	MainWindow		Change password…
+Failed to open database:\n	MainWindow		Failed to open database:\n
+Groups	MainWindow		Groups
+Change password	UnlockWindow		Change password
+Please enter a password.	UnlockWindow		Please enter a password.
+Passwords do not match.	UnlockWindow		Passwords do not match.
+Save changes before opening another database?	MainWindow		Save changes before opening another database?
+No entries could be imported from the file	CsvImport		No entries could be imported from the file
+\n%d empty rows were skipped.	MainWindow		\n%d empty rows were skipped.
+seconds	SettingsWindow		seconds
+New Group	GroupEditWindow		New Group
+Username:	EntryEditWindow		Username:
+Settings	MainWindow		Settings
+(top level)	GroupEditWindow		(top level)
+Database saved.	MainWindow		Database saved.
+Change	UnlockWindow		Change
+Generate…	EntryEditWindow		Generate…

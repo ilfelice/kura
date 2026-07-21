@@ -3,6 +3,8 @@
 
 NAME = Kura
 TYPE = APP
+APP_MIME_SIG = application/x-vnd.Kura
+LOCALES = en ja
 SRCS = \
 	src/KuraApp.cpp \
 	src/KuraWindow.cpp \
@@ -31,7 +33,6 @@ LIBPATHS =
 SYSTEM_INCLUDE_PATHS = /boot/system/develop/headers/private/interface
 LOCAL_INCLUDE_PATHS = src
 OPTIMIZE := FULL
-LOCALES =
 DEFINES =
 WARNINGS = TRUE
 SYMBOLS := FALSE

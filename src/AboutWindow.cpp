@@ -15,6 +15,7 @@
 #include <Application.h>
 #include <Bitmap.h>
 #include <Button.h>
+#include <Catalog.h>
 #include <ControlLook.h>
 #include <File.h>
 #include <Font.h>
@@ -33,6 +34,10 @@
 #include "KuraUtils.h"
 
 
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "AboutWindow"
+
+
 enum {
 	kMsgAboutOk = 'abok',
 };
@@ -43,27 +48,27 @@ enum {
 static const char* kAppName = "Kura";
 
 static const char* kAppDescription =
-	"Kura (“蔵”, a traditional Japanese "
+	B_TRANSLATE("Kura (“蔵”, a traditional Japanese "
 	"storehouse) is a password manager for the Haiku operating system. "
 	"It keeps your usernames, passwords and related secrets in a single "
-	"encrypted database that only you can open.";
+	"encrypted database that only you can open.");
 
 static const char* kAppSecurity =
-	"Your database is encrypted with AES-256-GCM. The key is derived "
+	B_TRANSLATE("Your database is encrypted with AES-256-GCM. The key is derived "
 	"from your master password with PBKDF2-HMAC-SHA256, and the "
-	"plaintext is held in memory only while the database is unlocked.";
+	"plaintext is held in memory only while the database is unlocked.");
 
 static const char* kAppLicense =
-	"Created with the assistance of AI tools.\n"
+	B_TRANSLATE("Created with the assistance of AI tools.\n"
 	"Distributed under the terms of the MIT License.\n"
-	"Copyright 2026 Il Felice.";
+	"Copyright 2026 Il Felice.");
 
-static const char* kCreditsHeader = "Credits:";
+static const char* kCreditsHeader = B_TRANSLATE("Credits:");
 static const char* kCreditsBody =
-	"OpenSSL for the cryptographic primitives.\n"
+	B_TRANSLATE("OpenSSL for the cryptographic primitives.\n"
 	"KeePass and KeePassXC as sources of inspiration and for CSV "
 	"import compatibility.\n"
-	"The Haiku Project for the operating system and its API.";
+	"The Haiku Project for the operating system and its API.");
 
 
 // Read a human-readable version string from the app's resources,
@@ -91,12 +96,12 @@ _VersionString()
 	if (result.IsEmpty())
 		result = "Kura";
 
-	// short_info is like "Kura - 0.3 alpha"; show just the version
+	// short_info is like "Kura - 0.5 alpha"; show just the version
 	int32 dash = result.FindFirst(" - ");
 	if (dash >= 0)
 		result.Remove(0, dash + 3);
 
-	BString out("Version ");
+	BString out(B_TRANSLATE("Version "));
 	out << result;
 	return out;
 }
@@ -167,7 +172,7 @@ private:
 
 AboutWindow::AboutWindow(BWindow* target)
 	:
-	BWindow(BRect(0, 0, 460, 300), "About Kura",
+	BWindow(BRect(0, 0, 460, 300), B_TRANSLATE("About Kura"),
 		B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL,
 		B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS
 			| B_CLOSE_ON_ESCAPE),
@@ -206,7 +211,8 @@ AboutWindow::AboutWindow(BWindow* target)
 	text << kAppDescription << "\n\n"
 		<< kAppSecurity << "\n\n"
 		<< kAppLicense << "\n\n"
-		<< kCreditsHeader << "\n" << kCreditsBody << "\n";
+		<< kCreditsHeader << "\n"
+		<< kCreditsBody << "\n";
 	fTextView->SetText(text.String());
 
 	rgb_color textColor = ui_color(B_LIST_ITEM_TEXT_COLOR);
@@ -215,7 +221,8 @@ AboutWindow::AboutWindow(BWindow* target)
 
 	// Bold the credits header
 	BFont sectionFont(be_bold_font);
-	int32 creditsPos = text.FindFirst(kCreditsHeader);
+	const char* creditsHeader = kCreditsHeader;
+	int32 creditsPos = text.FindFirst(creditsHeader);
 	if (creditsPos >= 0) {
 		fTextView->SetFontAndColor(creditsPos,
 			creditsPos + strlen(kCreditsHeader), &sectionFont,
@@ -226,7 +233,7 @@ AboutWindow::AboutWindow(BWindow* target)
 		B_WILL_DRAW | B_FRAME_EVENTS, false, true, B_PLAIN_BORDER);
 	scrollView->SetExplicitMinSize(BSize(340, 160));
 
-	BButton* okButton = new BButton("ok", "OK",
+	BButton* okButton = new BButton("ok", B_TRANSLATE("OK"),
 		new BMessage(kMsgAboutOk));
 	okButton->MakeDefault(true);
 

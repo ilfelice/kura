@@ -1,0 +1,180 @@
+1	Japanese	application/x-vnd.Kura	2198100157
+Use	PasswordGeneratorWindow		使用
+Add entry	MainWindow		エントリーを追加
+Password copied	MainWindow		パスワードをコピーしました
+New entry…	MainWindow		新規エントリー…
+Unlock Database	UnlockWindow		データベースのロック解除
+Confirm password:	UnlockWindow		パスワードの確認:
+Root	EntryEditWindow		ルート
+Version 	AboutWindow		バージョン 
+Lock database	MainWindow		データベースをロック
+Open database…	MainWindow		データベースを開く…
+Master password:	UnlockWindow		マスターパスワード:
+%d entries	MainWindow		%d 件のエントリー
+About Kura	AboutWindow		Kura について
+No data rows found in the file	CsvImport		ファイルにデータ行が見つかりません
+Out of memory	CsvImport		メモリ不足です
+Digits (0-9)	PasswordGeneratorWindow		数字 (0-9)
+Moved \"%s\" into \"%s\"	MainWindow		「%s」を「%s」の中へ移動しました
+Failed to read file	CsvImport		ファイルの読み込みに失敗しました
+Please enter your current password.	UnlockWindow		現在のパスワードを入力してください。
+Search:	EntryListView		検索:
+Save changes before locking?	MainWindow		ロックする前に変更を保存しますか？
+Kura: Open database	MainWindow		Kura: データベースを開く
+OpenSSL for the cryptographic primitives.\nKeePass and KeePassXC as sources of inspiration and for CSV import compatibility.\nThe Haiku Project for the operating system and its API.	AboutWindow		OpenSSL — 暗号化プリミティブの提供。\nKeePass および KeePassXC — 着想の源、および CSV インポートの互換性。\nHaiku プロジェクト — オペレーティングシステムと API の提供。
+Database locked	MainWindow		データベースはロックされています
+Delete group	MainWindow		グループを削除
+Keep a backup copy (.bak) of the database when saving	SettingsWindow		保存時にデータベースのバックアップコピー (.bak) を保持する
+Unlock database…	MainWindow		データベースのロックを解除…
+Unlocked	MainWindow		ロック解除中
+Copy password	MainWindow		パスワードをコピー
+Lock database when minimizing the window	SettingsWindow		ウィンドウの最小化時にデータベースをロックする
+Save database	MainWindow		データベースを保存
+Root	DetailView		ルート
+Password generator…	MainWindow		パスワード生成…
+Settings…	MainWindow		設定…
+Save	MainWindow		保存
+Save changes before quitting?	MainWindow		終了する前に変更を保存しますか？
+Edit entry…	MainWindow		エントリーを編集…
+Kura: Import KeePass CSV	MainWindow		Kura: KeePass CSV をインポート
+Error	MainWindow		エラー
+ (clears in %ds)	MainWindow		 (%d 秒後に消去)
+Lowercase (a-z)	PasswordGeneratorWindow		小文字 (a-z)
+Username:	DetailView		ユーザー名:
+Close database	MainWindow		データベースを閉じる
+Don't save	MainWindow		保存しない
+Failed to open file	CsvImport		ファイルを開けませんでした
+Cancel	UnlockWindow		キャンセル
+Duplicate entry	MainWindow		エントリーを複製
+Kura (“蔵”, a traditional Japanese storehouse) is a password manager for the Haiku operating system. It keeps your usernames, passwords and related secrets in a single encrypted database that only you can open.	AboutWindow		Kura（「蔵」、日本の伝統的な倉庫）は Haiku オペレーティングシステム用のパスワードマネージャーです。ユーザー名、パスワード、その他の秘密情報を、あなただけが開ける単一の暗号化データベースに保管します。
+Unlocked · Auto-lock in %d:%02d	MainWindow		ロック解除中 · %d:%02d 後に自動ロック
+New Database	UnlockWindow		新規データベース
+Unlock	UnlockWindow		ロック解除
+Length: %d	PasswordGeneratorWindow		長さ: %d
+Group:	EntryEditWindow		グループ:
+Edit Entry	EntryEditWindow		エントリーを編集
+New database…	MainWindow		新規データベース…
+Master password changed.	MainWindow		マスターパスワードを変更しました。
+Save	EntryEditWindow		保存
+About Kura…	MainWindow		Kura について…
+Copy username	MainWindow		ユーザー名をコピー
+Confirm:	UnlockWindow		確認:
+Uppercase (A-Z)	PasswordGeneratorWindow		大文字 (A-Z)
+Revert	SettingsWindow		元に戻す
+Failed to save database:\n	MainWindow		データベースの保存に失敗しました:\n
+Wrong password. Please try again.	MainWindow		パスワードが違います。もう一度お試しください。
+Select at least one character class.	PasswordGeneratorWindow		少なくとも1つの文字種を選択してください。
+Copied to clipboard.	PasswordGeneratorWindow		クリップボードにコピーしました。
+Import KeePass CSV…	MainWindow		KeePass CSV をインポート…
+The file no longer exists:\n	MainWindow		ファイルが存在しません:\n
+The current password is incorrect.	MainWindow		現在のパスワードが正しくありません。
+Open database	MainWindow		データベースを開く
+Clear clipboard after	SettingsWindow		クリップボードを消去するまでの時間
+Save	GroupEditWindow		保存
+Save changes before creating a new database?	MainWindow		新規データベースを作成する前に変更を保存しますか？
+OK	AboutWindow		OK
+Import failed:\n	MainWindow		インポートに失敗しました:\n
+New Entry	EntryEditWindow		新規エントリー
+This database is already open.	MainWindow		このデータベースは既に開いています。
+Remove entry	MainWindow		エントリーを削除
+Save automatically when locking	SettingsWindow		ロック時に自動的に保存する
+Help	MainWindow		ヘルプ
+Delete group \"%s\"?	MainWindow		グループ「%s」を削除しますか？
+Symbols (!@#$	PasswordGeneratorWindow		記号 (!@#$
+Imported %d entries	MainWindow		%d 件のエントリーをインポートしました
+Unlocked · auto-lock paused (unsaved changes)	MainWindow		ロック解除中 · 自動ロック停止中 (未保存の変更)
+minutes of inactivity	SettingsWindow		分間操作がない場合
+Your database is encrypted with AES-256-GCM. The key is derived from your master password with PBKDF2-HMAC-SHA256, and the plaintext is held in memory only while the database is unlocked.	AboutWindow		データベースは AES-256-GCM で暗号化されています。暗号鍵はマスターパスワードから PBKDF2-HMAC-SHA256 を使用して導出され、平文データはデータベースのロックが解除されている間だけメモリ上に保持されます。
+Group	EntryEditWindow		グループ
+Edit entry	MainWindow		エントリーを編集
+File is too large to be a CSV export	CsvImport		ファイルが大きすぎるため CSV エクスポートではありません
+Password:	DetailView		パスワード:
+Root	MainWindow		ルート
+Kura: Save database as	MainWindow		Kura: 名前を付けてデータベースを保存
+Untitled	CsvImport		無題
+Modified: %Y-%m-%d %H:%M	DetailView		更新: %Y-%m-%d %H:%M
+Username copied	MainWindow		ユーザー名をコピーしました
+Modified	EntryListView		更新日時
+Random generator failure.	PasswordGeneratorWindow		乱数生成に失敗しました。
+Title	EntryListView		タイトル
+OK	MainWindow		OK
+Kura: New database	MainWindow		Kura: 新規データベース
+No entry selected	DetailView		エントリーが選択されていません
+Create	UnlockWindow		作成
+Cancel	EntryEditWindow		キャンセル
+Entries	MainWindow		エントリー
+Save?	MainWindow		保存しますか？
+Save changes before closing the database?	MainWindow		データベースを閉じる前に変更を保存しますか？
+Quit	MainWindow		終了
+New database	MainWindow		新規データベース
+Import	MainWindow		インポート
+Copy	PasswordGeneratorWindow		コピー
+Lock or unlock database	MainWindow		データベースのロック / ロック解除
+Please enter a new password.	UnlockWindow		新しいパスワードを入力してください。
+Settings	SettingsWindow		設定
+Exclude look-alikes (l1IO0o|)	PasswordGeneratorWindow		紛らわしい文字を除外 (l1IO0o|)
+Created: %Y-%m-%d %H:%M	DetailView		作成: %Y-%m-%d %H:%M
+Cancel	GroupEditWindow		キャンセル
+Import complete - unsaved changes	MainWindow		インポート完了 - 未保存の変更があります
+Database closed	MainWindow		データベースを閉じました
+New group…	MainWindow		新規グループ…
+Password:	EntryEditWindow		パスワード:
+Open recent	MainWindow		最近開いたファイル
+Cancel	MainWindow		キャンセル
+(no recent files)	MainWindow		(最近のファイルはありません)
+Title:	EntryEditWindow		タイトル:
+Lock database after	SettingsWindow		データベースをロックするまでの時間
+Tools	MainWindow		ツール
+Clear recent files	MainWindow		履歴を消去
+Notes:	DetailView		メモ:
+No database open	MainWindow		データベースが開かれていません
+Entropy: ~%.0f bits (%s)	PasswordGeneratorWindow		エントロピー: 約 %.0f ビット (%s)
+Save as…	MainWindow		名前を付けて保存…
+The file contains a header but no entries	CsvImport		ファイルにはヘッダーのみでエントリーがありません
+\n\nThe database has not been saved yet - review the imported entries and save.\n\nNote: the CSV file still contains your passwords in plain text. Consider deleting it after verifying the import.	MainWindow		\n\nデータベースはまだ保存されていません。インポートされたエントリーを確認して保存してください。\n\n注意: CSV ファイルには引き続きパスワードが平文で含まれています。インポート内容を確認した後、ファイルを削除することをお勧めします。
+Credits:	AboutWindow		クレジット:
+Password must be at least 4 characters.	UnlockWindow		パスワードは4文字以上にしてください。
+Created with the assistance of AI tools.\nDistributed under the terms of the MIT License.\nCopyright 2026 Il Felice.	AboutWindow		AI ツールの支援を受けて作成されました。\nMIT ライセンスの条件の下で配布されます。\nCopyright 2026 Il Felice.
+Parent:	GroupEditWindow		親グループ:
+Invalid arguments	CsvImport		無効な引数です
+Delete entry \"%s\"?	MainWindow		エントリー「%s」を削除しますか？
+Moved \"%s\" to \"%s\"	MainWindow		「%s」を「%s」へ移動しました
+Root	GroupListView		ルート
+Delete	MainWindow		削除
+Name:	GroupEditWindow		名前:
+Username	EntryListView		ユーザー名
+Edit group…	MainWindow		グループを編集…
+Current password:	UnlockWindow		現在のパスワード:
+Parent	GroupEditWindow		親グループ
+\n\n%d entries will be moved to Root.	MainWindow		\n\n%d 件のエントリーはルートに移動されます。
+New password:	UnlockWindow		新しいパスワード:
+Database closed, changes discarded	MainWindow		データベースを閉じ、変更を破棄しました
+Generate	PasswordGeneratorWindow		生成
+ and created %d groups	MainWindow		、%d 個のグループを作成
+Notes:	EntryEditWindow		メモ:
+URL:	DetailView		URL:
+File is empty	CsvImport		ファイルが空です
+Delete entry	MainWindow		エントリーを削除
+Defaults	SettingsWindow		デフォルト
+Edit Group	GroupEditWindow		グループを編集
+Database	MainWindow		データベース
+Password generator	PasswordGeneratorWindow		パスワード生成
+URL:	EntryEditWindow		URL:
+Open URL	MainWindow		URL を開く
+Change password…	MainWindow		パスワードを変更…
+Failed to open database:\n	MainWindow		データベースを開けませんでした:\n
+Groups	MainWindow		グループ
+Change password	UnlockWindow		パスワードの変更
+Please enter a password.	UnlockWindow		パスワードを入力してください。
+Passwords do not match.	UnlockWindow		パスワードが一致しません。
+Save changes before opening another database?	MainWindow		別のデータベースを開く前に変更を保存しますか？
+No entries could be imported from the file	CsvImport		ファイルからエントリーをインポートできませんでした
+\n%d empty rows were skipped.	MainWindow		\n%d 件の空行をスキップしました。
+seconds	SettingsWindow		秒
+New Group	GroupEditWindow		新規グループ
+Username:	EntryEditWindow		ユーザー名:
+Settings	MainWindow		設定
+(top level)	GroupEditWindow		(最上位)
+Database saved.	MainWindow		データベースを保存しました。
+Change	UnlockWindow		変更
+Generate…	EntryEditWindow		生成…

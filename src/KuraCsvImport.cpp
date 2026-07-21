@@ -14,11 +14,15 @@
 #include <time.h>
 #include <vector>
 
+#include <Catalog.h>
 #include <File.h>
 #include <ObjectList.h>
 
 #include "KuraUtils.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "CsvImport"
 
 // Maximum accepted CSV file size (plain-text CSVs are small; this
 // only guards against accidentally picking a huge file).
@@ -300,36 +304,36 @@ KuraCsvImport::Import(const char* path, KuraDatabase* db)
 	fError = "";
 
 	if (path == NULL || db == NULL) {
-		fError = "Invalid arguments";
+		fError = B_TRANSLATE("Invalid arguments");
 		return B_BAD_VALUE;
 	}
 
 	BFile file(path, B_READ_ONLY);
 	status_t result = file.InitCheck();
 	if (result != B_OK) {
-		fError = "Failed to open file";
+		fError = B_TRANSLATE("Failed to open file");
 		return result;
 	}
 
 	off_t size = 0;
 	file.GetSize(&size);
 	if (size <= 0) {
-		fError = "File is empty";
+		fError = B_TRANSLATE("File is empty");
 		return B_BAD_DATA;
 	}
 	if (size > kMaxCsvSize) {
-		fError = "File is too large to be a CSV export";
+		fError = B_TRANSLATE("File is too large to be a CSV export");
 		return B_BAD_DATA;
 	}
 
 	char* data = new(std::nothrow) char[size];
 	if (data == NULL) {
-		fError = "Out of memory";
+		fError = B_TRANSLATE("Out of memory");
 		return B_NO_MEMORY;
 	}
 
 	if (file.Read(data, size) != (ssize_t)size) {
-		fError = "Failed to read file";
+		fError = B_TRANSLATE("Failed to read file");
 		delete[] data;
 		return B_IO_ERROR;
 	}
@@ -342,7 +346,7 @@ KuraCsvImport::Import(const char* path, KuraDatabase* db)
 	delete[] data;
 
 	if (rows.empty()) {
-		fError = "No data rows found in the file";
+		fError = B_TRANSLATE("No data rows found in the file");
 		return B_BAD_DATA;
 	}
 
@@ -363,7 +367,7 @@ KuraCsvImport::Import(const char* path, KuraDatabase* db)
 	}
 
 	if (rows.size() <= firstDataRow) {
-		fError = "The file contains a header but no entries";
+		fError = B_TRANSLATE("The file contains a header but no entries");
 		return B_BAD_DATA;
 	}
 
@@ -432,7 +436,7 @@ KuraCsvImport::Import(const char* path, KuraDatabase* db)
 		}
 
 		if (entry.title.Length() == 0)
-			entry.title = "Untitled";
+			entry.title = B_TRANSLATE("Untitled");
 
 		// Group path
 		BString group = FIELD(row, map.group);
@@ -470,7 +474,7 @@ KuraCsvImport::Import(const char* path, KuraDatabase* db)
 	}
 
 	if (fImported == 0) {
-		fError = "No entries could be imported from the file";
+		fError = B_TRANSLATE("No entries could be imported from the file");
 		return B_BAD_DATA;
 	}
 

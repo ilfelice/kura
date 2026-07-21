@@ -6,7 +6,7 @@ keeps your usernames, passwords and related secrets in a single encrypted
 database that only you can open, with a clean, native Haiku interface built
 on the Be API.
 
-> ⚠️ **Alpha software.** Kura is under active development (version 0.3
+> ⚠️ **Alpha software.** Kura is under active development (version 0.5
 > alpha). It works and is usable day to day, but the on‑disk format may
 > still change between versions. Keep independent backups of anything
 > important, and don't rely on it as your sole store of critical
@@ -137,15 +137,15 @@ The source lives under `src/`. Broadly:
 
 ## Status & roadmap
 
-Kura is at **0.3 alpha**. Implemented and working: encrypted database,
+Kura is at **0.5 alpha**. Implemented and working: encrypted database,
 groups, entry management, password generator, search, auto‑lock, clipboard
-clearing, CSV import, settings, toolbar and drag‑and‑drop.
+clearing, CSV import, settings, toolbar, drag‑and‑drop and localization
+(Haiku Locale Kit, with a Japanese translation included).
 
 Planned / under consideration:
 
 - Custom fields per entry (arbitrary named, optionally protected fields)
 - CSV export
-- Localization (Haiku Locale Kit)
 
 ---
 

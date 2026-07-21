@@ -9,6 +9,7 @@
 #include "GroupEditWindow.h"
 
 #include <Button.h>
+#include <Catalog.h>
 #include <LayoutBuilder.h>
 #include <Menu.h>
 #include <MenuField.h>
@@ -18,6 +19,9 @@
 #include "KuraDefs.h"
 #include "KuraUtils.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "GroupEditWindow"
 
 // Internal messages
 enum {
@@ -29,7 +33,7 @@ GroupEditWindow::GroupEditWindow(BRect frame, const KuraGroup* group,
 	KuraDatabase* database, BWindow* target)
 	:
 	BWindow(frame,
-		group != NULL ? "Edit Group" : "New Group",
+		group != NULL ? B_TRANSLATE("Edit Group") : B_TRANSLATE("New Group"),
 		B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL,
 		B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS
 			| B_CLOSE_ON_ESCAPE),
@@ -39,17 +43,17 @@ GroupEditWindow::GroupEditWindow(BRect frame, const KuraGroup* group,
 	fParentId(group != NULL ? group->parentId : kNoId),
 	fIcon("")
 {
-	fNameField = new BTextControl("name", "Name:", "", NULL);
+	fNameField = new BTextControl("name", B_TRANSLATE("Name:"), "", NULL);
 
 	// Parent group menu
-	BMenu* parentMenu = new BMenu("Parent");
-	fParentField = new BMenuField("parent", "Parent:", parentMenu);
+	BMenu* parentMenu = new BMenu(B_TRANSLATE("Parent"));
+	fParentField = new BMenuField("parent", B_TRANSLATE("Parent:"), parentMenu);
 	_PopulateParentMenu();
 
 	// Buttons
-	fCancelButton = new BButton("cancel", "Cancel",
+	fCancelButton = new BButton("cancel", B_TRANSLATE("Cancel"),
 		new BMessage(kMsgGroupCancel));
-	fSaveButton = new BButton("save", "Save",
+	fSaveButton = new BButton("save", B_TRANSLATE("Save"),
 		new BMessage(kMsgGroupSave));
 	fSaveButton->MakeDefault(true);
 
@@ -147,7 +151,7 @@ GroupEditWindow::_PopulateParentMenu()
 	// Top-level option
 	BMessage* noneMsg = new BMessage(kMsgParentChosen);
 	noneMsg->AddInt32("parentId", kNoId);
-	BMenuItem* noneItem = new BMenuItem("(top level)", noneMsg);
+	BMenuItem* noneItem = new BMenuItem(B_TRANSLATE("(top level)"), noneMsg);
 	menu->AddItem(noneItem);
 	if (fParentId == kNoId)
 		noneItem->SetMarked(true);

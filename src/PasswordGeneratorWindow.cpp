@@ -15,6 +15,7 @@
 #include <openssl/rand.h>
 
 #include <Button.h>
+#include <Catalog.h>
 #include <CheckBox.h>
 #include <GroupView.h>
 #include <LayoutBuilder.h>
@@ -28,6 +29,9 @@
 #include "KuraDefs.h"
 #include "KuraUtils.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "PasswordGeneratorWindow"
 
 // Internal messages
 enum {
@@ -51,7 +55,7 @@ static const int32 kDefaultLength = 20;
 PasswordGeneratorWindow::PasswordGeneratorWindow(BRect frame,
 	BMessenger target)
 	:
-	BWindow(frame, "Password generator",
+	BWindow(frame, B_TRANSLATE("Password generator"),
 		target.IsValid() ? B_FLOATING_WINDOW_LOOK : B_TITLED_WINDOW_LOOK,
 		target.IsValid() ? B_MODAL_APP_WINDOW_FEEL : B_NORMAL_WINDOW_FEEL,
 		B_NOT_ZOOMABLE | B_AUTO_UPDATE_SIZE_LIMITS | B_CLOSE_ON_ESCAPE),
@@ -60,7 +64,7 @@ PasswordGeneratorWindow::PasswordGeneratorWindow(BRect frame,
 {
 	// Length slider
 	BString lengthLabel;
-	lengthLabel.SetToFormat("Length: %d", static_cast<int>(kDefaultLength));
+	lengthLabel.SetToFormat(B_TRANSLATE("Length: %d"), static_cast<int>(kDefaultLength));
 	fLengthSlider = new BSlider("length", lengthLabel.String(),
 		new BMessage(kMsgOptionsChanged), kMinLength, kMaxLength,
 		B_HORIZONTAL);
@@ -71,20 +75,20 @@ PasswordGeneratorWindow::PasswordGeneratorWindow(BRect frame,
 	fLengthSlider->SetExplicitMinSize(BSize(320, B_SIZE_UNSET));
 
 	// Character class checkboxes
-	fLowerBox = new BCheckBox("lower", "Lowercase (a-z)",
+	fLowerBox = new BCheckBox("lower", B_TRANSLATE("Lowercase (a-z)"),
 		new BMessage(kMsgOptionsChanged));
 	fLowerBox->SetValue(B_CONTROL_ON);
-	fUpperBox = new BCheckBox("upper", "Uppercase (A-Z)",
+	fUpperBox = new BCheckBox("upper", B_TRANSLATE("Uppercase (A-Z)"),
 		new BMessage(kMsgOptionsChanged));
 	fUpperBox->SetValue(B_CONTROL_ON);
-	fDigitsBox = new BCheckBox("digits", "Digits (0-9)",
+	fDigitsBox = new BCheckBox("digits", B_TRANSLATE("Digits (0-9)"),
 		new BMessage(kMsgOptionsChanged));
 	fDigitsBox->SetValue(B_CONTROL_ON);
-	fSymbolsBox = new BCheckBox("symbols", "Symbols (!@#$" B_UTF8_ELLIPSIS ")",
+	fSymbolsBox = new BCheckBox("symbols", B_TRANSLATE("Symbols (!@#$" B_UTF8_ELLIPSIS ")"),
 		new BMessage(kMsgOptionsChanged));
 	fSymbolsBox->SetValue(B_CONTROL_ON);
 	fAmbiguousBox = new BCheckBox("ambiguous",
-		"Exclude look-alikes (l1IO0o|)",
+		B_TRANSLATE("Exclude look-alikes (l1IO0o|)"),
 		new BMessage(kMsgOptionsChanged));
 
 	// Result
@@ -97,13 +101,13 @@ PasswordGeneratorWindow::PasswordGeneratorWindow(BRect frame,
 	fEntropyView->SetHighUIColor(B_PANEL_TEXT_COLOR, 0.6);
 
 	// Buttons
-	fGenerateButton = new BButton("generate", "Generate",
+	fGenerateButton = new BButton("generate", B_TRANSLATE("Generate"),
 		new BMessage(kMsgGenerate));
-	fCopyButton = new BButton("copy", "Copy",
+	fCopyButton = new BButton("copy", B_TRANSLATE("Copy"),
 		new BMessage(kMsgCopy));
 	fUseButton = NULL;
 	if (fHasTarget) {
-		fUseButton = new BButton("use", "Use",
+		fUseButton = new BButton("use", B_TRANSLATE("Use"),
 			new BMessage(kMsgUse));
 		fUseButton->MakeDefault(true);
 	} else
@@ -166,7 +170,7 @@ PasswordGeneratorWindow::MessageReceived(BMessage* message)
 			}
 
 			BString label;
-			label.SetToFormat("Length: %d",
+			label.SetToFormat(B_TRANSLATE("Length: %d"),
 				static_cast<int>(fLengthSlider->Value()));
 			fLengthSlider->SetLabel(label.String());
 
@@ -180,7 +184,7 @@ PasswordGeneratorWindow::MessageReceived(BMessage* message)
 
 		case kMsgCopy:
 			KuraClipboard::CopyWithTimedClear(fResultField->Text());
-			fEntropyView->SetText("Copied to clipboard.");
+			fEntropyView->SetText(B_TRANSLATE("Copied to clipboard."));
 			break;
 
 		case kMsgUse:
@@ -249,7 +253,8 @@ PasswordGeneratorWindow::_Generate()
 
 	if (pool.Length() == 0) {
 		fResultField->SetText("");
-		fEntropyView->SetText("Select at least one character class.");
+		fEntropyView->SetText(
+		B_TRANSLATE("Select at least one character class."));
 		return;
 	}
 
@@ -281,7 +286,7 @@ PasswordGeneratorWindow::_Generate()
 			uint32 index;
 			if (_RandomIndex(static_cast<uint32>(pool.Length()), index) != B_OK) {
 				fResultField->SetText("");
-				fEntropyView->SetText("Random generator failure.");
+				fEntropyView->SetText(B_TRANSLATE("Random generator failure."));
 				return;
 			}
 			password << pool[index];
@@ -337,6 +342,6 @@ PasswordGeneratorWindow::_UpdateEntropyLabel()
 	else
 		rating = "excellent";
 
-	text.SetToFormat("Entropy: ~%.0f bits (%s)", entropy, rating);
+	text.SetToFormat(B_TRANSLATE("Entropy: ~%.0f bits (%s)"), entropy, rating);
 	fEntropyView->SetText(text.String());
 }

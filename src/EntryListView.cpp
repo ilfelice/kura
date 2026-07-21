@@ -12,12 +12,16 @@
 #include <time.h>
 
 #include <Bitmap.h>
+#include <Catalog.h>
 #include <LayoutBuilder.h>
 #include <TextControl.h>
 
 #include "KuraDefs.h"
 #include "SearchTextControl.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "EntryListView"
 
 // Column indices
 enum {
@@ -144,11 +148,11 @@ EntryListView::EntryListView()
 	fListView = new EntryColumnListView();
 
 	// Add columns
-	fListView->AddColumn(new BStringColumn("Title", 180, 80, 400,
+	fListView->AddColumn(new BStringColumn(B_TRANSLATE("Title"), 180, 80, 400,
 		B_TRUNCATE_MIDDLE), kTitleColumn);
-	fListView->AddColumn(new BStringColumn("Username", 150, 60, 300,
+	fListView->AddColumn(new BStringColumn(B_TRANSLATE("Username"), 150, 60, 300,
 		B_TRUNCATE_END), kUsernameColumn);
-	fListView->AddColumn(new BStringColumn("Modified", 130, 80, 200,
+	fListView->AddColumn(new BStringColumn(B_TRANSLATE("Modified"), 130, 80, 200,
 		B_TRUNCATE_END), kModifiedColumn);
 
 	fListView->SetSortColumn(fListView->ColumnAt(kTitleColumn), true, true);
@@ -159,7 +163,7 @@ EntryListView::EntryListView()
 	fListView->SetExplicitMinSize(BSize(0, 0));
 
 	// Search field above the list, with an inline clear "x"
-	fSearchField = new SearchTextControl("search", "Search:",
+	fSearchField = new SearchTextControl("search", B_TRANSLATE("Search:"),
 		new BMessage(kMsgSearchChanged));
 
 	BLayoutBuilder::Group<>(this, B_VERTICAL, B_USE_HALF_ITEM_SPACING)

@@ -11,6 +11,7 @@
 #include <string.h>
 
 #include <Button.h>
+#include <Catalog.h>
 #include <LayoutBuilder.h>
 #include <Menu.h>
 #include <MenuField.h>
@@ -26,6 +27,9 @@
 #include "KuraUtils.h"
 #include "PasswordGeneratorWindow.h"
 
+
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "EntryEditWindow"
 
 // Resource IDs (must match Kura.rdef)
 enum {
@@ -45,7 +49,7 @@ EntryEditWindow::EntryEditWindow(BRect frame, const KuraEntry* entry,
 	KuraDatabase* database, BWindow* target)
 	:
 	BWindow(frame,
-		entry != NULL ? "Edit Entry" : "New Entry",
+		entry != NULL ? B_TRANSLATE("Edit Entry") : B_TRANSLATE("New Entry"),
 		B_TITLED_WINDOW_LOOK, B_MODAL_APP_WINDOW_FEEL,
 		B_NOT_ZOOMABLE | B_CLOSE_ON_ESCAPE),
 	fDatabase(database),
@@ -53,9 +57,9 @@ EntryEditWindow::EntryEditWindow(BRect frame, const KuraEntry* entry,
 	fEntryId(entry != NULL ? entry->id : kNoId),
 	fGroupId(entry != NULL ? entry->groupId : kAllGroupId)
 {
-	fTitleField = new BTextControl("title", "Title:", "", NULL);
-	fUsernameField = new BTextControl("username", "Username:", "", NULL);
-	fUrlField = new BTextControl("url", "URL:", "", NULL);
+	fTitleField = new BTextControl("title", B_TRANSLATE("Title:"), "", NULL);
+	fUsernameField = new BTextControl("username", B_TRANSLATE("Username:"), "", NULL);
+	fUrlField = new BTextControl("url", B_TRANSLATE("URL:"), "", NULL);
 
 	// Password field using FieldView with hide-typing and show/hide button
 	fPasswordField = new FieldView("password");
@@ -64,15 +68,15 @@ EntryEditWindow::EntryEditWindow(BRect frame, const KuraEntry* entry,
 	fPasswordField->AddButton(kIconHide, kMsgTogglePassword);
 
 	fGenerateButton = new BButton("generate",
-		"Generate" B_UTF8_ELLIPSIS, new BMessage(kMsgOpenGenerator));
+		B_TRANSLATE("Generate" B_UTF8_ELLIPSIS), new BMessage(kMsgOpenGenerator));
 
 	// Group menu
-	BMenu* groupMenu = new BMenu("Group");
-	fGroupField = new BMenuField("group", "Group:", groupMenu);
+	BMenu* groupMenu = new BMenu(B_TRANSLATE("Group"));
+	fGroupField = new BMenuField("group", B_TRANSLATE("Group:"), groupMenu);
 	_PopulateGroupMenu();
 
 	// Notes
-	BStringView* notesLabel = new BStringView("notesLabel", "Notes:");
+	BStringView* notesLabel = new BStringView("notesLabel", B_TRANSLATE("Notes:"));
 	fNotesView = new BTextView("notes");
 	fNotesView->SetStylable(false);
 	BScrollView* notesScroll = new BScrollView("notesScroll", fNotesView,
@@ -80,9 +84,9 @@ EntryEditWindow::EntryEditWindow(BRect frame, const KuraEntry* entry,
 	notesScroll->SetExplicitMinSize(BSize(B_SIZE_UNSET, 80));
 
 	// Buttons
-	fCancelButton = new BButton("cancel", "Cancel",
+	fCancelButton = new BButton("cancel", B_TRANSLATE("Cancel"),
 		new BMessage(kMsgEntryCancel));
-	fSaveButton = new BButton("save", "Save",
+	fSaveButton = new BButton("save", B_TRANSLATE("Save"),
 		new BMessage(kMsgEntrySave));
 	fSaveButton->MakeDefault(true);
 
@@ -98,7 +102,7 @@ EntryEditWindow::EntryEditWindow(BRect frame, const KuraEntry* entry,
 	fPasswordField->SetTarget(this);
 
 	// Password label (FieldView doesn't have CreateLabelLayoutItem)
-	BStringView* passwordLabel = new BStringView("passLabel", "Password:");
+	BStringView* passwordLabel = new BStringView("passLabel", B_TRANSLATE("Password:"));
 
 	// Layout
 	BLayoutBuilder::Group<>(this, B_VERTICAL, B_USE_HALF_ITEM_SPACING)
@@ -240,7 +244,7 @@ EntryEditWindow::_PopulateGroupMenu()
 	// Entries without a subgroup live directly in "Root"
 	BMessage* noneMsg = new BMessage(kMsgGroupChosen);
 	noneMsg->AddInt32("groupId", kAllGroupId);
-	BMenuItem* noneItem = new BMenuItem("Root", noneMsg);
+	BMenuItem* noneItem = new BMenuItem(B_TRANSLATE("Root"), noneMsg);
 	menu->AddItem(noneItem);
 
 	if (fGroupId == kAllGroupId)
