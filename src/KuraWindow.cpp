@@ -608,18 +608,18 @@ KuraWindow::MessageReceived(BMessage* message)
 
 			BString summary;
 			summary.SetToFormat("Imported %d entries",
-				(int)importer.ImportedEntries());
+				static_cast<int>(importer.ImportedEntries()));
 			if (importer.CreatedGroups() > 0) {
 				BString g;
 				g.SetToFormat(" and created %d groups",
-					(int)importer.CreatedGroups());
+					static_cast<int>(importer.CreatedGroups()));
 				summary << g;
 			}
 			summary << ".";
 			if (importer.SkippedRows() > 0) {
 				BString s;
 				s.SetToFormat("\n%d empty rows were skipped.",
-					(int)importer.SkippedRows());
+					static_cast<int>(importer.SkippedRows()));
 				summary << s;
 			}
 			summary << "\n\nThe database has not been saved yet - "
@@ -1470,7 +1470,7 @@ KuraWindow::_CopyUsername()
 	if (fSettings.ClipboardClearEnabled()) {
 		BString suffix;
 		suffix.SetToFormat(" (clears in %ds)",
-			(int)fSettings.ClipboardClearSeconds());
+			static_cast<int>(fSettings.ClipboardClearSeconds()));
 		status << suffix;
 	}
 	fStatusBar->SetStatusText(status.String());
@@ -1496,7 +1496,7 @@ KuraWindow::_CopyPassword()
 	if (fSettings.ClipboardClearEnabled()) {
 		BString suffix;
 		suffix.SetToFormat(" (clears in %ds)",
-			(int)fSettings.ClipboardClearSeconds());
+			static_cast<int>(fSettings.ClipboardClearSeconds()));
 		status << suffix;
 	}
 	fStatusBar->SetStatusText(status.String());
@@ -1671,7 +1671,7 @@ void
 KuraWindow::_UpdateRecentMenu()
 {
 	// Rebuild the submenu from the settings
-	while (BMenuItem* item = fRecentMenu->RemoveItem((int32)0))
+	while (BMenuItem* item = fRecentMenu->RemoveItem(static_cast<int32>(0)))
 		delete item;
 
 	int32 count = fSettings.CountRecentFiles();
@@ -1736,7 +1736,7 @@ KuraWindow::_UpdateStatusBar()
 	}
 
 	BString count;
-	count.SetToFormat("%d entries", (int)fDatabase.CountEntries());
+	count.SetToFormat("%d entries", static_cast<int>(fDatabase.CountEntries()));
 	fStatusBar->SetCountText(count.String());
 }
 

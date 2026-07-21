@@ -132,7 +132,7 @@ KuraCrypto::EncryptToFile(const char* path, const BString& password,
 	// format is well-defined; a no-op on x86).
 	uint32 versionLE = B_HOST_TO_LENDIAN_INT32(kKuraVersion);
 	uint32 iterationsLE = B_HOST_TO_LENDIAN_INT32(kDefaultIterations);
-	uint32 ctLenLE = B_HOST_TO_LENDIAN_INT32((uint32)totalLen);
+	uint32 ctLenLE = B_HOST_TO_LENDIAN_INT32(static_cast<uint32>(totalLen));
 
 	bool writeOk = true;
 	writeOk = writeOk && file.Write(kKuraMagic, 4) == 4;
@@ -316,7 +316,7 @@ KuraCrypto::DecryptFromFile(const char* path, const BString& password,
 	}
 
 	plaintext[totalLen] = '\0';
-	jsonData.SetTo((const char*)plaintext, totalLen);
+	jsonData.SetTo(reinterpret_cast<const char*>(plaintext), totalLen);
 
 	memset(plaintext, 0, totalLen);
 	delete[] plaintext;

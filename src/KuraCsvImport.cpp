@@ -148,7 +148,7 @@ _MapHeader(const CsvRow& row, ColumnMap& map)
 {
 	for (size_t i = 0; i < row.size(); i++) {
 		BString name = _NormalizeHeader(row[i]);
-		int32 index = (int32)i;
+		int32 index = static_cast<int32>(i);
 
 		if (name == "group" || name == "grouping"
 				|| name == "folder") {

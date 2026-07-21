@@ -479,7 +479,7 @@ public:
 		item->DrawItem(this, frame, complete);
 
 		if (CountItemsUnder(item, true) > 0) {
-			DrawLatch(itemRect, (int32)item->OutlineLevel(),
+			DrawLatch(itemRect, static_cast<int32>(item->OutlineLevel()),
 				!item->IsExpanded(),
 				item->IsSelected() || complete, false);
 		}

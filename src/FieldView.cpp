@@ -609,7 +609,7 @@ FieldView::_RenderIcons()
 		if (data == NULL)
 			continue;
 
-		int32 sz = (int32)iconSize;
+		int32 sz = static_cast<int32>(iconSize);
 		BBitmap* bitmap = new BBitmap(
 			BRect(0, 0, sz - 1, sz - 1), B_RGBA32);
 		if (BIconUtils::GetVectorIcon(

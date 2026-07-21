@@ -228,7 +228,7 @@ UnlockWindow::_Submit()
 	msg.AddString("password", password.String());
 	if (fMode == UNLOCK_CHANGE)
 		msg.AddString("current", current.String());
-	msg.AddInt32("mode", (int32)fMode);
+	msg.AddInt32("mode", static_cast<int32>(fMode));
 	fTarget->PostMessage(&msg);
 
 	// Scrub passwords from memory

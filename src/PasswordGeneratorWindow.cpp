@@ -60,7 +60,7 @@ PasswordGeneratorWindow::PasswordGeneratorWindow(BRect frame,
 {
 	// Length slider
 	BString lengthLabel;
-	lengthLabel.SetToFormat("Length: %d", (int)kDefaultLength);
+	lengthLabel.SetToFormat("Length: %d", static_cast<int>(kDefaultLength));
 	fLengthSlider = new BSlider("length", lengthLabel.String(),
 		new BMessage(kMsgOptionsChanged), kMinLength, kMaxLength,
 		B_HORIZONTAL);
@@ -167,7 +167,7 @@ PasswordGeneratorWindow::MessageReceived(BMessage* message)
 
 			BString label;
 			label.SetToFormat("Length: %d",
-				(int)fLengthSlider->Value());
+				static_cast<int>(fLengthSlider->Value()));
 			fLengthSlider->SetLabel(label.String());
 
 			_Generate();
@@ -279,7 +279,7 @@ PasswordGeneratorWindow::_Generate()
 		password = "";
 		for (int32 i = 0; i < length; i++) {
 			uint32 index;
-			if (_RandomIndex((uint32)pool.Length(), index) != B_OK) {
+			if (_RandomIndex(static_cast<uint32>(pool.Length()), index) != B_OK) {
 				fResultField->SetText("");
 				fEntropyView->SetText("Random generator failure.");
 				return;

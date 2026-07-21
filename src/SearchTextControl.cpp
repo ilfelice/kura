@@ -182,7 +182,7 @@ SearchTextControl::AttachedToWindow()
 
 	float size = ceilf(be_plain_font->Size());
 	if (TextView() != NULL) {
-		TextView()->SetInsets(2, 2, (int32)size + 4, 2);
+		TextView()->SetInsets(2, 2, static_cast<int32>(size) + 4, 2);
 		fClearButton->SetColors(TextView()->ViewColor());
 		TextView()->AddFilter(new InputFilter(this));
 	}

@@ -303,13 +303,13 @@ KuraSettings::SaveSplitWeights(const char* name, BSplitView* split)
 
 	// Remove old data
 	for (int32 i = 0; i < split->CountItems(); i++) {
-		fieldName.SetToFormat("%s_weight_%d", name, (int)i);
+		fieldName.SetToFormat("%s_weight_%d", name, static_cast<int>(i));
 		fSettings.RemoveName(fieldName.String());
 	}
 
 	// Save current weights
 	for (int32 i = 0; i < split->CountItems(); i++) {
-		fieldName.SetToFormat("%s_weight_%d", name, (int)i);
+		fieldName.SetToFormat("%s_weight_%d", name, static_cast<int>(i));
 		fSettings.AddFloat(fieldName.String(), split->ItemWeight(i));
 	}
 }
@@ -321,7 +321,7 @@ KuraSettings::RestoreSplitWeights(const char* name, BSplitView* split)
 	BString fieldName;
 
 	for (int32 i = 0; i < split->CountItems(); i++) {
-		fieldName.SetToFormat("%s_weight_%d", name, (int)i);
+		fieldName.SetToFormat("%s_weight_%d", name, static_cast<int>(i));
 		float weight;
 		if (fSettings.FindFloat(fieldName.String(), &weight) == B_OK)
 			split->SetItemWeight(i, weight, true);
@@ -351,12 +351,12 @@ KuraSettings::SaveColumnState(const char* name, BColumnListView* list)
 		BString field;
 
 		// Width
-		field.SetToFormat("%s_col_%d_width", name, (int)i);
+		field.SetToFormat("%s_col_%d_width", name, static_cast<int>(i));
 		fSettings.RemoveName(field.String());
 		fSettings.AddFloat(field.String(), col->Width());
 
 		// Visibility
-		field.SetToFormat("%s_col_%d_visible", name, (int)i);
+		field.SetToFormat("%s_col_%d_visible", name, static_cast<int>(i));
 		fSettings.RemoveName(field.String());
 		fSettings.AddBool(field.String(), col->IsVisible());
 	}
@@ -386,12 +386,12 @@ KuraSettings::RestoreColumnState(const char* name, BColumnListView* list)
 		bool visible;
 
 		// Width
-		field.SetToFormat("%s_col_%d_width", name, (int)i);
+		field.SetToFormat("%s_col_%d_width", name, static_cast<int>(i));
 		if (fSettings.FindFloat(field.String(), &width) == B_OK)
 			col->SetWidth(width);
 
 		// Visibility
-		field.SetToFormat("%s_col_%d_visible", name, (int)i);
+		field.SetToFormat("%s_col_%d_visible", name, static_cast<int>(i));
 		if (fSettings.FindBool(field.String(), &visible) == B_OK)
 			col->SetVisible(visible);
 	}
